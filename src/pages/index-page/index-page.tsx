@@ -1,3 +1,4 @@
+import {Helmet} from 'react-helmet-async';
 import Header from '../../components/header/header';
 import CitiesCard from '../../components/cities-card/cities-card';
 import { cardsMocks } from '../../components/cities-card/card-data';
@@ -5,6 +6,9 @@ import { cardsMocks } from '../../components/cities-card/card-data';
 function IndexPage(): JSX.Element {
   return (
     <div className="page page--gray page--main">
+      <Helmet>
+        <title>Главная страница</title>
+      </Helmet>
       <Header />
 
       <main className="page__main page__main--index">
