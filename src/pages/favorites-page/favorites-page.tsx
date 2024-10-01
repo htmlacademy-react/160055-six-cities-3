@@ -48,7 +48,7 @@ function FavoritesPage(props: FavoriteProps): JSX.Element {
                                 src={item.images[0]}
                                 width={150}
                                 height={110}
-                                alt="Place image"
+                                alt={item.type + item.description + item.id}
                               />
                             </Link>
                           </div>

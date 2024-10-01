@@ -28,7 +28,7 @@ function ReviewOfferForm(): JSX.Element {
           rating.map(({value, label}) => (
             <Fragment key={value}>
               <input
-                defaultValue={5}
+                // defaultValue={5}
                 onChange = {handleRatingStarClick}
                 className="form__rating-input visually-hidden"
                 name="rating"

@@ -27,9 +27,9 @@ function OfferPage(): JSX.Element {
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
               {
-                currentOffer?.images.map((url) => (
+                currentOffer?.images.map((url, index) => (
                   <div key={url} className="offer__image-wrapper">
-                    <img className="offer__image" src={url} alt="Photo studio" />
+                    <img className="offer__image" src={url} alt={url + index}/>
                   </div>
                 ))
               }
