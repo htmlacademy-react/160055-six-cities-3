@@ -7,15 +7,21 @@ import OfferPage from '../../pages/offer-page/offer-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import PrivateRoute from '../private-route/private-route';
+import {Offers} from '../offer-card/offer-type';
 
-function App(): JSX.Element {
+type Props = {
+  offers: Offers;
+  favoriteOffers: Offers;
+}
+
+function App({offers, favoriteOffers}: Props): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route
             path={AppRoute.Main}
-            element={<IndexPage />}
+            element={<IndexPage offers={offers} />}
           />
           <Route
             path={AppRoute.Login}
@@ -24,15 +30,13 @@ function App(): JSX.Element {
           <Route
             path={AppRoute.Favorites}
             element={
-              <PrivateRoute
-                authorizationStatus={AuthorizationStatus.NoAuth}
-              >
-                <FavoritesPage />
+              <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+                <FavoritesPage favoriteOffers={favoriteOffers} />
               </PrivateRoute>
             }
           />
           <Route
-            path={AppRoute.Offer}
+            path={`${AppRoute.Offer}/:id`}
             element={<OfferPage />}
           />
           <Route
