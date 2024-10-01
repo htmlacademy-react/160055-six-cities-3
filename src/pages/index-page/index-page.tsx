@@ -1,51 +1,31 @@
 import {Helmet} from 'react-helmet-async';
 import Header from '../../components/header/header';
-import CitiesCard from '../../components/cities-card/cities-card';
-import { cardsMocks } from '../../components/cities-card/card-data';
+import OffersCardIndex from '../../components/offer-card/offers-card-index';
+import {CITIES} from '../../mocks/offers';
+import {Offers} from '../../components/offer-card/offer-type';
 
-function IndexPage(): JSX.Element {
+type Props = {
+  offers: Offers;
+}
+
+function IndexPage({offers}: Props): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <Helmet>
         <title>Главная страница</title>
       </Helmet>
       <Header />
-
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
+              {CITIES.map((city) => (
+                <li className="locations__item" key={city}>
+                  <a className="locations__item-link tabs__item" href="#">
+                    <span>{city}</span>
+                  </a>
+                </li>))}
             </ul>
           </section>
         </div>
@@ -70,9 +50,7 @@ function IndexPage(): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {cardsMocks.map((card) => (
-                  <CitiesCard key={card.id} id={card.id} title={card.title} type={card.type} price={card.price} isFavorite={card.isFavorite} isPremium={card.isPremium} previewImage={card.previewImage} rating={card.rating} />
-                ))};
+                <OffersCardIndex offers={offers} />
               </div>
             </section>
             <div className="cities__right-section">
