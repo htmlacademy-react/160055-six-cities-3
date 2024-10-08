@@ -19,11 +19,11 @@ export type Offer = {
       zoom: number;
     };
   };
-  // location: {
-  //   latitude: number;
-  //   longitude: number;
-  //   zoom: number;
-  // };
+  location: {
+    latitude: number;
+    longitude: number;
+    zoom: number;
+  };
   // host: {
   //   name: string;
   //   avatarUrl: string;
@@ -31,3 +31,10 @@ export type Offer = {
   // };
 }
 export type Offers = Offer[];
+
+export type City = {
+  name: string;
+  latitude: number;
+  longitude: number;
+  zoom: number;
+};

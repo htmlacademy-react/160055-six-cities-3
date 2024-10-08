@@ -24,6 +24,11 @@ export const favoriteOffers: Offer[] = [
         zoom: 8
       }
     },
+    location: {
+      latitude: 52.3609553943508,
+      longitude: 4.85309666406198,
+      zoom: 8,
+    },
   },
   {
     id: '2',
@@ -48,6 +53,11 @@ export const favoriteOffers: Offer[] = [
         zoom: 8
       }
     },
+    location: {
+      latitude: 52.3609553943508,
+      longitude: 4.85309666406198,
+      zoom: 8,
+    },
   },
   {
     id: '3',
@@ -71,6 +81,11 @@ export const favoriteOffers: Offer[] = [
         longitude: 4.673877537499948,
         zoom: 8
       }
+    },
+    location: {
+      latitude: 52.3609553943508,
+      longitude: 4.85309666406198,
+      zoom: 8,
     },
   },
 ];

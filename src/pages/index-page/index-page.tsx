@@ -2,13 +2,15 @@ import {Helmet} from 'react-helmet-async';
 import Header from '../../components/header/header';
 import OffersCardIndex from '../../components/offer-card/offers-card-index';
 import {CITIES} from '../../mocks/offers';
-import {Offers} from '../../components/offer-card/offer-type';
+import {Offers, City} from '../../components/offer-card/offer-type';
+import Map from '../../components/map/map';
 
 type Props = {
+  city: City;
   offers: Offers;
 }
 
-function IndexPage({offers}: Props): JSX.Element {
+function IndexPage({offers, city}: Props): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -20,10 +22,10 @@ function IndexPage({offers}: Props): JSX.Element {
         <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
-              {CITIES.map((city) => (
-                <li className="locations__item" key={city}>
+              {CITIES.map((cityName) => (
+                <li className="locations__item" key={cityName}>
                   <a className="locations__item-link tabs__item" href="#">
-                    <span>{city}</span>
+                    <span>{cityName}</span>
                   </a>
                 </li>))}
             </ul>
@@ -54,7 +56,9 @@ function IndexPage({offers}: Props): JSX.Element {
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <section className="cities__map map">
+                <Map city={city} offers={offers} />
+              </section>
             </div>
           </div>
         </div>
