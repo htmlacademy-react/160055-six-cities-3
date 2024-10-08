@@ -19,12 +19,17 @@ export const offers: Offer[] = [
     maxAdults: 2,
     goods: ['Wi-Fi', 'Heating', 'Dishwasher', 'Cabel TV'],
     city: {
-      name: 'Brusels',
+      name: 'Amsterdam',
       location: {
-        latitude: 52.35514938496378,
-        longitude: 4.673877537499948,
-        zoom: 8
-      }
+        latitude: 52.374,
+        longitude: 4.88969,
+        zoom: 10,
+      },
+    },
+    location: {
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
+      zoom: 8,
     },
   },
   {
@@ -43,12 +48,17 @@ export const offers: Offer[] = [
     maxAdults: 1,
     goods: ['Coffee machine', 'Heating', 'Kitchen', 'Cabel TV'],
     city: {
-      name: 'Brusels',
+      name: 'Amsterdam',
       location: {
-        latitude: 52.35514938496378,
-        longitude: 4.673877537499948,
-        zoom: 8
-      }
+        latitude: 52.374,
+        longitude: 4.88969,
+        zoom: 10,
+      },
+    },
+    location: {
+      latitude: 52.3609553943508,
+      longitude: 4.85309666406198,
+      zoom: 8,
     },
   },
   {
@@ -67,12 +77,17 @@ export const offers: Offer[] = [
     maxAdults: 5,
     goods: ['Coffee machine', 'Fridge', 'Towels', 'Cabel TV'],
     city: {
-      name: 'Brusels',
+      name: 'Amsterdam',
       location: {
-        latitude: 52.35514938496378,
-        longitude: 4.673877537499948,
-        zoom: 8
-      }
+        latitude: 52.374,
+        longitude: 4.88969,
+        zoom: 10,
+      },
+    },
+    location: {
+      latitude: 52.3909553943508,
+      longitude: 4.929309666406198,
+      zoom: 8,
     },
   },
   {
@@ -91,36 +106,17 @@ export const offers: Offer[] = [
     maxAdults: 3,
     goods: ['Coffee machine', 'Fridge', 'Towels', 'Heating', 'Baby seat'],
     city: {
-      name: 'Brusels',
+      name: 'Amsterdam',
       location: {
-        latitude: 52.35514938496378,
-        longitude: 4.673877537499948,
-        zoom: 8
-      }
+        latitude: 52.374,
+        longitude: 4.88969,
+        zoom: 10,
+      },
     },
-  },
-  {
-    id: '5',
-    title: '51234',
-    type: 'room',
-    price: 50,
-    isFavorite: true,
-    isPremium: false,
-    rating: 5,
-    images: ['./../../../markup/img/apartment-03.jpg',
-      './../../../markup/img/apartment-01.jpg',
-      './../../../markup/img/apartment-02.jpg'],
-    description: 'Wood and stone place',
-    bedrooms: 1,
-    maxAdults: 2,
-    goods: ['Wi-Fi', 'Towels', 'Baby seat'],
-    city: {
-      name: 'Brusels',
-      location: {
-        latitude: 52.35514938496378,
-        longitude: 4.673877537499948,
-        zoom: 8
-      }
+    location: {
+      latitude: 52.3809553943508,
+      longitude: 4.939309666406198,
+      zoom: 8,
     },
   },
 ];
