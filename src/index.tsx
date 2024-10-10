@@ -4,7 +4,7 @@ import App from './components/main/app';
 import {offers} from './mocks/offers';
 import {favoriteOffers} from './mocks/favorite-offers';
 import {CITY} from './mocks/city';
-import { reviews } from './mocks/reviews';
+import {reviews} from './mocks/reviews';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

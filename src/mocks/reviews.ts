@@ -1,12 +1,12 @@
-import { Review } from '../components/reviews/review-type';
+import { Reviews } from '../types/review-type';
 
-export const reviews: Review[] = [
+export const reviews: Reviews = [
   {
     id: 'b67ddfd5-b953-4a30-8c8d-bd083cd6b62a1',
     date: '2019-05-08T14:13:56.569Z',
     user: {
       name: 'Oliver Conner',
-      avatarUrl: 'img/avatar-max.jpg',
+      avatarUrl: 'img/avatar.svg',
       isPro: false,
     },
     comment: '123',
@@ -28,7 +28,7 @@ export const reviews: Review[] = [
     date: '2019-05-08T14:13:56.569Z',
     user: {
       name: 'Angelina',
-      avatarUrl: 'img/avatar-max.jpg',
+      avatarUrl: 'img/avatar-angelina.jpg',
       isPro: true,
     },
     comment: '12345',

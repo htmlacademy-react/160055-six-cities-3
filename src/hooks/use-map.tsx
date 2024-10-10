@@ -1,6 +1,6 @@
 import {useEffect, useState, MutableRefObject, useRef} from 'react';
 import {Map, TileLayer} from 'leaflet';
-import { City } from '../components/offer-card/offer-type';
+import { City } from '../types/offer-type';
 import { TILE_LAYER_URL, TILE_LAYER_ATTRIBUTION } from '../const';
 
 function useMap(mapRef: MutableRefObject<HTMLElement | null>, city: City): Map | null {

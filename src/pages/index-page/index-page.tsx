@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import {Helmet} from 'react-helmet-async';
 import Header from '../../components/header/header';
-import OffersCardIndex from '../../components/offer-card/offers-card-index';
+import OffersCardsIndex from '../../components/offer-card/offers-card-index';
 import { CITIES } from '../../mocks/offers';
-import {Offer, Offers, City} from '../../components/offer-card/offer-type';
+import {Offer, Offers, City} from '../../types/offer-type';
 import Map from '../../components/map/map';
 
 type Props = {
@@ -66,13 +66,11 @@ function IndexPage({offers, city}: Props): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <OffersCardIndex offers={offers} onOfferHover={handleOfferHover} onOfferLeave={handleOfferLeave} />
+                <OffersCardsIndex offers={offers} onOfferHover={handleOfferHover} onOfferLeave={handleOfferLeave} />
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map">
-                <Map city={city} offers={offers} selectedOffer={selectedOffer} />
-              </section>
+              <Map city={city} offers={offers} selectedOffer={selectedOffer} className='cities__map' />
             </div>
           </div>
         </div>

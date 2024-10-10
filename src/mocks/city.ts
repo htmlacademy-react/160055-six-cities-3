@@ -1,4 +1,4 @@
-import { City } from '../components/offer-card/offer-type';
+import { City } from '../types/offer-type';
 
 export const CITY: City = {
   name: 'Amsterdam',

@@ -1,4 +1,4 @@
-import {Offer} from './offer-type';
+import {Offer} from '../../types/offer-type';
 import {useState} from 'react';
 import {MouseEvent} from 'react';
 import {Nullable} from 'vitest';

@@ -7,8 +7,8 @@ import OfferPage from '../../pages/offer-page/offer-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import PrivateRoute from '../private-route/private-route';
-import {Offers, City} from '../offer-card/offer-type';
-import { Reviews } from '../reviews/review-type';
+import {Offers, City} from '../../types/offer-type';
+import { Reviews } from '../../types/review-type';
 
 type Props = {
   city: City;
@@ -40,7 +40,7 @@ function App({offers, favoriteOffers, city, reviews}: Props): JSX.Element {
           />
           <Route
             path={`${AppRoute.Offer}/:id`}
-            element={<OfferPage reviews={reviews} />}
+            element={<OfferPage city={city} reviews={reviews} />}
           />
           <Route
             path="*"
