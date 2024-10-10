@@ -11,14 +11,7 @@ export type Offer = {
   bedrooms: number;
   maxAdults: number;
   goods: string[];
-  city: {
-    name: string;
-    location: {
-      latitude: number;
-      longitude: number;
-      zoom: number;
-    };
-  };
+  city: City;
   location: {
     latitude: number;
     longitude: number;
@@ -34,7 +27,11 @@ export type Offers = Offer[];
 
 export type City = {
   name: string;
+  location: Location;
+};
+
+export type Location = {
   latitude: number;
   longitude: number;
   zoom: number;
-};
+}

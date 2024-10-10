@@ -2,7 +2,7 @@ import {Helmet} from 'react-helmet-async';
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import {Link} from 'react-router-dom';
-import {Offers} from '../../components/offer-card/offer-type';
+import {Offers} from '../../types/offer-type';
 
 type FavoriteProps = {
   favoriteOffers: Offers;
