@@ -8,14 +8,16 @@ import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import PrivateRoute from '../private-route/private-route';
 import {Offers, City} from '../offer-card/offer-type';
+import { Reviews } from '../reviews/review-type';
 
 type Props = {
   city: City;
   offers: Offers;
   favoriteOffers: Offers;
+  reviews: Reviews;
 }
 
-function App({offers, favoriteOffers, city}: Props): JSX.Element {
+function App({offers, favoriteOffers, city, reviews}: Props): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -38,7 +40,7 @@ function App({offers, favoriteOffers, city}: Props): JSX.Element {
           />
           <Route
             path={`${AppRoute.Offer}/:id`}
-            element={<OfferPage />}
+            element={<OfferPage reviews={reviews} />}
           />
           <Route
             path="*"

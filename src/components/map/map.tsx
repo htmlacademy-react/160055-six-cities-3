@@ -1,14 +1,14 @@
 import {useRef, useEffect} from 'react';
 import {Icon, Marker, layerGroup} from 'leaflet';
-import useMap from '../hooks/use-map';
-import { City, Offers } from '../offer-card/offer-type';
-import {URL_MARKER_DEFAULT} from '../../const';
+import useMap from '../../hooks/use-map';
+import { City, Offers, Offer } from '../offer-card/offer-type';
+import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../const';
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
   city: City;
   offers: Offers;
-  // selectedOffer: Offer | undefined;
+  selectedOffer: Offer | undefined;
 };
 
 const defaultCustomIcon = new Icon({
@@ -17,14 +17,14 @@ const defaultCustomIcon = new Icon({
   iconAnchor: [20, 40]
 });
 
-// const currentCustomIcon = new Icon({
-//   iconUrl: URL_MARKER_CURRENT,
-//   iconSize: [40, 40],
-//   iconAnchor: [20, 40]
-// });
+const currentCustomIcon = new Icon({
+  iconUrl: URL_MARKER_CURRENT,
+  iconSize: [40, 40],
+  iconAnchor: [20, 40]
+});
 
 function Map(props: MapProps): JSX.Element {
-  const {city, offers} = props;
+  const {city, offers, selectedOffer} = props;
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
@@ -39,7 +39,11 @@ function Map(props: MapProps): JSX.Element {
         });
 
         marker
-          .setIcon(defaultCustomIcon)
+          .setIcon(
+            selectedOffer !== undefined && offer.id === selectedOffer.id
+              ? currentCustomIcon
+              : defaultCustomIcon
+          )
           .addTo(markerLayer);
       });
 
@@ -47,7 +51,7 @@ function Map(props: MapProps): JSX.Element {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, offers]);
+  }, [map, offers, selectedOffer]);
 
   return <div style={{height: '100%'}} ref={mapRef}></div>;
 }

@@ -1,36 +1,42 @@
 import {Offer} from './offer-type';
 import {useState} from 'react';
+import {MouseEvent} from 'react';
 import {Nullable} from 'vitest';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
 
 type OfferProp = {
   offer: Offer;
+  onOfferHover: (listItemId: string | undefined) => void;
+  onOfferLeave: () => void;
 }
 
 function OfferCard(props: OfferProp): JSX.Element {
-  const {offer} = props;
+  const {offer, onOfferHover, onOfferLeave} = props;
   const {id, type, title, price, isPremium, isFavorite, rating, images} = offer;
 
   const ratingInStar = `${rating / 5 * 100}%`;
   const firstImage = images[0];
 
   const [, setActiveOffer] = useState<Nullable<Offer>>(null);
-  const handleHover = (offers?: Offer) => {
-    setActiveOffer(offers || null);
+
+  const handleOfferHover = (event: MouseEvent<HTMLLIElement>) => {
+    event.preventDefault();
+    setActiveOffer(offer || null);
+    onOfferHover(event.currentTarget.dataset.id);
   };
-  const handleMouseOn = () => {
-    handleHover(offer);
-  };
-  const handleMouseOff = () => {
-    handleHover();
+
+  const handleOfferLeave = () => {
+    setActiveOffer(null);
+    onOfferLeave();
   };
 
   return (
     <article
       className="cities__card place-card"
-      onMouseEnter={handleMouseOn}
-      onMouseLeave={handleMouseOff}
+      onMouseEnter={handleOfferHover}
+      onMouseLeave={handleOfferLeave}
+      data-id={id}
     >
       {isPremium ? <div className="place-card__mark"><span>Premium</span></div> : ''}
       <div className="cities__image-wrapper place-card__image-wrapper">
