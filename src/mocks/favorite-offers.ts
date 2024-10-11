@@ -1,4 +1,4 @@
-import {Offer} from '../components/offer-card/offer-type';
+import {Offer} from '../types/offer-type';
 
 export const favoriteOffers: Offer[] = [
   {
