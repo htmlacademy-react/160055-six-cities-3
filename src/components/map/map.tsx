@@ -5,11 +5,20 @@ import { City, Offers, Offer } from '../../types/offer-type';
 import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../const';
 import 'leaflet/dist/leaflet.css';
 
+const EMPTY_LOCATION: City = {
+  name: '',
+  location: {
+    latitude: 0,
+    longitude: 0,
+    zoom: 0
+  }
+};
+
 type MapProps = {
-  city: City;
   offers: Offers;
   selectedOffer: Offer | undefined;
   className?: string;
+  currentCity: string;
 };
 
 const defaultCustomIcon = new Icon({
@@ -25,23 +34,33 @@ const currentCustomIcon = new Icon({
 });
 
 function Map(props: MapProps): JSX.Element {
-  const {city, offers, selectedOffer, className} = props;
+  const {offers, selectedOffer, className, currentCity} = props;
+
+  const offer = offers.find((item)=> item.city.name === currentCity);
+
+  const getOfferCity = (offerCityObject: Offer | undefined): City => {
+    if(offerCityObject) {
+      const cityObject = offerCityObject.city;
+      return cityObject;
+    }
+    return EMPTY_LOCATION;
+  };
 
   const mapRef = useRef(null);
-  const map = useMap(mapRef, city);
+  const map = useMap(mapRef, getOfferCity(offer));
 
   useEffect(() => {
     if (map) {
       const markerLayer = layerGroup().addTo(map);
-      offers.forEach((offer) => {
+      offers.forEach((item) => {
         const marker = new Marker({
-          lat: offer.location.latitude,
-          lng: offer.location.longitude
+          lat: item.location.latitude,
+          lng: item.location.longitude
         });
 
         marker
           .setIcon(
-            selectedOffer !== undefined && offer.id === selectedOffer.id
+            selectedOffer !== undefined && item.id === selectedOffer.id
               ? currentCustomIcon
               : defaultCustomIcon
           )
@@ -52,7 +71,7 @@ function Map(props: MapProps): JSX.Element {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, offers, selectedOffer]);
+  }, [map, offers, selectedOffer, currentCity]);
 
   return <section className={`map ${className}`} ref={mapRef} />;
 }

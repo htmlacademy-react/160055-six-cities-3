@@ -17,11 +17,6 @@ export type Offer = {
     longitude: number;
     zoom: number;
   };
-  // host: {
-  //   name: string;
-  //   avatarUrl: string;
-  //   isPro: boolean;
-  // };
 }
 export type Offers = Offer[];
 
@@ -29,6 +24,8 @@ export type City = {
   name: string;
   location: Location;
 };
+
+export type Cities = City[];
 
 export type Location = {
   latitude: number;
