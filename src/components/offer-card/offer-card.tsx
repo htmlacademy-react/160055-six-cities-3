@@ -1,7 +1,5 @@
 import {Offer} from '../../types/offer-type';
-import {useState} from 'react';
 import {MouseEvent} from 'react';
-import {Nullable} from 'vitest';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
 
@@ -18,16 +16,11 @@ function OfferCard(props: OfferProp): JSX.Element {
   const ratingInStar = `${rating / 5 * 100}%`;
   const firstImage = images[0];
 
-  const [, setActiveOffer] = useState<Nullable<Offer>>(null);
-
   const handleOfferHover = (event: MouseEvent<HTMLLIElement>) => {
-    event.preventDefault();
-    setActiveOffer(offer || null);
     onOfferHover(event.currentTarget.dataset.id);
   };
 
   const handleOfferLeave = () => {
-    setActiveOffer(null);
     onOfferLeave();
   };
 
