@@ -1,17 +1,18 @@
 import { useState } from 'react';
 import {Helmet} from 'react-helmet-async';
 import Header from '../../components/header/header';
-import OffersCardsIndex from '../../components/offer-card/offers-card-index';
-import { CITIES } from '../../mocks/offers';
-import {Offer, Offers, City} from '../../types/offer-type';
+import OffersCardsList from '../../components/offer-card/offers-cards-list';
+import {Offer, Offers} from '../../types/offer-type';
 import Map from '../../components/map/map';
+import CitiesList from '../../components/cities/cities';
 
 type Props = {
-  city: City;
   offers: Offers;
+  currentCity: string;
+  cities: string[];
 }
 
-function IndexPage({offers, city}: Props): JSX.Element {
+function IndexPage({cities, offers, currentCity}: Props): JSX.Element {
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(
     undefined
   );
@@ -25,6 +26,9 @@ function IndexPage({offers, city}: Props): JSX.Element {
   const handleOfferLeave = () => {
     setSelectedOffer(undefined);
   };
+
+  const currentOffers = offers.filter((offer) => offer.city.name === currentCity);
+
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -35,21 +39,14 @@ function IndexPage({offers, city}: Props): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <ul className="locations__list tabs__list">
-              {CITIES.map((cityName) => (
-                <li className="locations__item" key={cityName}>
-                  <a className="locations__item-link tabs__item" href="#">
-                    <span>{cityName}</span>
-                  </a>
-                </li>))}
-            </ul>
+            <CitiesList cities={cities} />
           </section>
         </div>
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">312 places to stay in Amsterdam</b>
+              <b className="places__found">{currentOffers.length} places to stay in {currentCity}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -66,11 +63,11 @@ function IndexPage({offers, city}: Props): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <OffersCardsIndex offers={offers} onOfferHover={handleOfferHover} onOfferLeave={handleOfferLeave} />
+                <OffersCardsList offers={currentOffers} onOfferHover={handleOfferHover} onOfferLeave={handleOfferLeave} />
               </div>
             </section>
             <div className="cities__right-section">
-              <Map city={city} offers={offers} selectedOffer={selectedOffer} className='cities__map' />
+              <Map offers={offers} selectedOffer={selectedOffer} currentCity = {currentCity} className='cities__map' />
             </div>
           </div>
         </div>

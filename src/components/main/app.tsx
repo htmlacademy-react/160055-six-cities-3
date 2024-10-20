@@ -7,24 +7,27 @@ import OfferPage from '../../pages/offer-page/offer-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import PrivateRoute from '../private-route/private-route';
-import {Offers, City} from '../../types/offer-type';
+import {Offers} from '../../types/offer-type';
 import { Reviews } from '../../types/review-type';
+import { useAppSelector } from '../../hooks/store';
 
 type Props = {
-  city: City;
-  offers: Offers;
   favoriteOffers: Offers;
   reviews: Reviews;
+  cities: string[];
 }
 
-function App({offers, favoriteOffers, city, reviews}: Props): JSX.Element {
+function App({favoriteOffers, reviews, cities}: Props): JSX.Element {
+  const storeOffers = useAppSelector((state)=>state.offers);
+  const currentCity = useAppSelector((state) => state.city);
+
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route
             path={AppRoute.Main}
-            element={<IndexPage city={city} offers={offers} />}
+            element={<IndexPage cities={cities} offers={storeOffers} currentCity={currentCity} />}
           />
           <Route
             path={AppRoute.Login}
@@ -40,7 +43,7 @@ function App({offers, favoriteOffers, city, reviews}: Props): JSX.Element {
           />
           <Route
             path={`${AppRoute.Offer}/:id`}
-            element={<OfferPage city={city} reviews={reviews} />}
+            element={<OfferPage reviews={reviews} currentCity={currentCity} />}
           />
           <Route
             path="*"

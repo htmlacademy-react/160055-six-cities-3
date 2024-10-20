@@ -7,7 +7,7 @@ type CardsProps = {
   onOfferLeave: () => void;
 }
 
-function OffersCardsIndex(props: CardsProps): JSX.Element {
+function OffersCardsList(props: CardsProps): JSX.Element {
   const {offers, onOfferHover, onOfferLeave} = props;
 
   return (
@@ -20,4 +20,4 @@ function OffersCardsIndex(props: CardsProps): JSX.Element {
     </>
   );
 }
-export default OffersCardsIndex;
+export default OffersCardsList;

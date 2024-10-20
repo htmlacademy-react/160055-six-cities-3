@@ -9,15 +9,14 @@ import {offers} from '../../mocks/offers';
 import ReviewOfferList from '../../components/reviews/review-offer-list';
 import { Reviews } from '../../types/review-type';
 import Map from '../../components/map/map';
-import {City} from '../../types/offer-type';
-import OffersCardsIndex from '../../components/offer-card/offers-card-index';
+import OffersCardsList from '../../components/offer-card/offers-cards-list';
 
 type Props = {
   reviews: Reviews;
-  city: City;
+  currentCity: string;
 }
 
-function OfferPage({reviews, city}: Props): JSX.Element {
+function OfferPage({reviews, currentCity}: Props): JSX.Element {
   const {id} = useParams();
   const currentOffer: Offer | undefined = offers.find((offer: Offer) => offer.id === id);
   const nearOffers = offers.slice(0,3);
@@ -138,13 +137,13 @@ function OfferPage({reviews, city}: Props): JSX.Element {
               </section>
             </div>
           </div>
-          <Map city={city} offers={nearOffers} selectedOffer={selectedOffer} className='offer__map' />
+          <Map offers={nearOffers} selectedOffer={selectedOffer} currentCity = {currentCity} className='offer__map' />
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <OffersCardsIndex offers={nearOffers} onOfferHover={handleOfferHover} onOfferLeave={handleOfferLeave} />
+              <OffersCardsList offers={nearOffers} onOfferHover={handleOfferHover} onOfferLeave={handleOfferLeave} />
             </div>
           </section>
         </div>
