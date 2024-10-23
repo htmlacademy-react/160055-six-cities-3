@@ -10,6 +10,8 @@ import ReviewOfferList from '../../components/reviews/review-offer-list';
 import { Reviews } from '../../types/review-type';
 import Map from '../../components/map/map';
 import OffersCardsList from '../../components/offer-card/offers-cards-list';
+import { useAppSelector } from '../../hooks/store';
+import { offersSelectors } from '../../store/slices/offers';
 
 type Props = {
   reviews: Reviews;
@@ -19,7 +21,7 @@ type Props = {
 function OfferPage({reviews, currentCity}: Props): JSX.Element {
   const {id} = useParams();
   const currentOffer: Offer | undefined = offers.find((offer: Offer) => offer.id === id);
-  const nearOffers = offers.slice(0,3);
+  const nearOffers = useAppSelector(offersSelectors.offers);
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(
     undefined
   );
