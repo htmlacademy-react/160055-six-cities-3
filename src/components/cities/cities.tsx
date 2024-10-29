@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useAppDispatch, useAppSelector, useActionCreators } from '../../hooks/store';
+import { useAppSelector, useActionCreators } from '../../hooks/store';
 import { offersActions, offersSelectors } from '../../store/slices/offers';
 type CardsProps = {
   cities: string[];
@@ -7,7 +7,6 @@ type CardsProps = {
 
 function CitiesList(props: CardsProps): JSX.Element {
   const {cities} = props;
-  const dispatch = useAppDispatch();
   const currentCity = useAppSelector(offersSelectors.city);
   const {setCity} = useActionCreators(offersActions);
 
@@ -16,7 +15,7 @@ function CitiesList(props: CardsProps): JSX.Element {
       {cities.map((city) => (
         <li onClick={(evt) => {
           evt.preventDefault();
-          dispatch(setCity(city));
+          setCity(city);
         }}
         className="locations__item"
         key={city}
