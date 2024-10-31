@@ -10,6 +10,7 @@ import PrivateRoute from '../private-route/private-route';
 import {Offers} from '../../types/offer-type';
 import { Reviews } from '../../types/review-type';
 import { useAppSelector } from '../../hooks/store';
+import { offersSelectors } from '../../store/slices/offers';
 
 type Props = {
   favoriteOffers: Offers;
@@ -18,8 +19,7 @@ type Props = {
 }
 
 function App({favoriteOffers, reviews, cities}: Props): JSX.Element {
-  const storeOffers = useAppSelector((state)=>state.offers);
-  const currentCity = useAppSelector((state) => state.city);
+  const currentCity = useAppSelector(offersSelectors.city);
 
   return (
     <HelmetProvider>
@@ -27,7 +27,7 @@ function App({favoriteOffers, reviews, cities}: Props): JSX.Element {
         <Routes>
           <Route
             path={AppRoute.Main}
-            element={<IndexPage cities={cities} offers={storeOffers} currentCity={currentCity} />}
+            element={<IndexPage cities={cities} />}
           />
           <Route
             path={AppRoute.Login}
