@@ -8,14 +8,14 @@ import OfferPage from '../../pages/offer-page/offer-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import PrivateRoute from '../private-route/private-route';
-import {Offers} from '../../types/offer-type';
+import {FullOffer} from '../../types/offer-type';
 import { Reviews } from '../../types/review-type';
 import { useAppDispatch, useAppSelector } from '../../hooks/store';
 import { offersSelectors } from '../../store/slices/offers';
 import { fetchAllOffers } from '../../store/thunks/offers';
 
 type Props = {
-  favoriteOffers: Offers;
+  favoriteOffers: FullOffer[];
   reviews: Reviews;
   cities: string[];
 }

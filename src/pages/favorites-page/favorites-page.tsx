@@ -2,10 +2,10 @@ import {Helmet} from 'react-helmet-async';
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import {Link} from 'react-router-dom';
-import {Offers} from '../../types/offer-type';
+import {FullOffer} from '../../types/offer-type';
 
 type FavoriteProps = {
-  favoriteOffers: Offers;
+  favoriteOffers: FullOffer[];
 }
 
 function FavoritesPage(props: FavoriteProps): JSX.Element {
@@ -45,7 +45,7 @@ function FavoritesPage(props: FavoriteProps): JSX.Element {
                             <Link to="#">
                               <img
                                 className="place-card__image"
-                                src={item.images[0]}
+                                src={item.previewImage}
                                 width={150}
                                 height={110}
                                 alt={item.type + item.description + item.id}
