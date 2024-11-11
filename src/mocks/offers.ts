@@ -1,6 +1,6 @@
-import {Offer} from '../types/offer-type';
+import {FullOffer} from '../types/offer-type';
 
-export const offers: Offer[] = [
+export const offers: FullOffer[] = [
   {
     id: '1',
     title: '12345',
@@ -9,9 +9,7 @@ export const offers: Offer[] = [
     isFavorite: false,
     isPremium: true,
     rating: 4,
-    images: ['./../../../markup/img/apartment-01.jpg',
-      './../../../markup/img/apartment-02.jpg',
-      './../../../markup/img/apartment-03.jpg'],
+    previewImage: '1',
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     bedrooms: 3,
     maxAdults: 2,
@@ -29,6 +27,18 @@ export const offers: Offer[] = [
       longitude: 4.85309666406198,
       zoom: 8,
     },
+    images: ['https://15.design.htmlacademy.pro/static/hotel/19.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/20.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/1.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/2.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/3.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/4.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/5.jpg'],
+    host: {
+      name: 'Oliver Conner',
+      avatarUrl: 'https://url-to-image/image.png',
+      isPro: false,
+    },
   },
   {
     id: '2',
@@ -38,9 +48,7 @@ export const offers: Offer[] = [
     isFavorite: false,
     isPremium: false,
     rating: 5,
-    images: ['./../../../markup/img/apartment-03.jpg',
-      './../../../markup/img/apartment-02.jpg',
-      './../../../markup/img/apartment-01.jpg'],
+    previewImage: '1',
     description: 'An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.',
     bedrooms: 1,
     maxAdults: 1,
@@ -58,6 +66,18 @@ export const offers: Offer[] = [
       longitude: 4.85309666406198,
       zoom: 8,
     },
+    images: ['https://15.design.htmlacademy.pro/static/hotel/19.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/20.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/1.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/2.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/3.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/4.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/5.jpg'],
+    host: {
+      name: 'Oliver Conner',
+      avatarUrl: 'https://url-to-image/image.png',
+      isPro: false,
+    },
   },
   {
     id: '3',
@@ -67,9 +87,7 @@ export const offers: Offer[] = [
     isFavorite: true,
     isPremium: false,
     rating: 3,
-    images: ['./../../../markup/img/apartment-02.jpg',
-      './../../../markup/img/apartment-01.jpg',
-      './../../../markup/img/apartment-03.jpg'],
+    previewImage: '1',
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century',
     bedrooms: 3,
     maxAdults: 5,
@@ -87,6 +105,18 @@ export const offers: Offer[] = [
       longitude: 4.929309666406198,
       zoom: 8,
     },
+    images: ['https://15.design.htmlacademy.pro/static/hotel/19.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/20.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/1.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/2.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/3.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/4.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/5.jpg'],
+    host: {
+      name: 'Oliver Conner',
+      avatarUrl: 'https://url-to-image/image.png',
+      isPro: false,
+    },
   },
   {
     id: '4',
@@ -96,9 +126,7 @@ export const offers: Offer[] = [
     isFavorite: true,
     isPremium: true,
     rating: 2,
-    images: ['./../../../markup/img/apartment-01.jpg',
-      './../../../markup/img/apartment-03.jpg',
-      './../../../markup/img/apartment-02.jpg'],
+    previewImage: '1',
     description: 'Canal View Prinsengracht',
     bedrooms: 2,
     maxAdults: 3,
@@ -116,6 +144,18 @@ export const offers: Offer[] = [
       longitude: 4.939309666406198,
       zoom: 8,
     },
+    images: ['https://15.design.htmlacademy.pro/static/hotel/19.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/20.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/1.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/2.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/3.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/4.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/5.jpg'],
+    host: {
+      name: 'Oliver Conner',
+      avatarUrl: 'https://url-to-image/image.png',
+      isPro: false,
+    },
   },
   {
     id: '5',
@@ -128,8 +168,7 @@ export const offers: Offer[] = [
     rating: 2,
     bedrooms: 1,
     maxAdults: 2,
-    images: ['./../../../markup/img/apartment-03.jpg',
-      './../../../markup/img/apartment-02.jpg'],
+    previewImage: '1',
     city: {
       name: 'Paris',
       location: {
@@ -144,6 +183,18 @@ export const offers: Offer[] = [
       zoom: 16
     },
     goods: ['Coffee machine', 'Fridge', 'Towels', 'Heating', 'Baby seat'],
+    images: ['https://15.design.htmlacademy.pro/static/hotel/19.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/20.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/1.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/2.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/3.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/4.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/5.jpg'],
+    host: {
+      name: 'Oliver Conner',
+      avatarUrl: 'https://url-to-image/image.png',
+      isPro: false,
+    },
   },
   {
     id: '6',
@@ -156,9 +207,7 @@ export const offers: Offer[] = [
     rating: 1.3,
     bedrooms: 3,
     maxAdults: 4,
-    images: ['./../../../markup/img/apartment-02.jpg',
-      './../../../markup/img/apartment-03.jpg',
-      './../../../markup/img/apartment-02.jpg'],
+    previewImage: '1',
     city: {
       name: 'Cologne',
       location: {
@@ -173,6 +222,18 @@ export const offers: Offer[] = [
       zoom: 16
     },
     goods: ['Coffee machine', 'Fridge', 'Towels', 'Heating', 'Baby seat'],
+    images: ['https://15.design.htmlacademy.pro/static/hotel/19.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/20.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/1.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/2.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/3.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/4.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/5.jpg'],
+    host: {
+      name: 'Oliver Conner',
+      avatarUrl: 'https://url-to-image/image.png',
+      isPro: false,
+    },
   },
   {
     id: '7',
@@ -185,8 +246,7 @@ export const offers: Offer[] = [
     rating: 2.3,
     bedrooms: 2,
     maxAdults: 4,
-    images: ['./../../../markup/img/apartment-01.jpg',
-      './../../../markup/img/apartment-03.jpg'],
+    previewImage: '1',
     city: {
       name: 'Brussels',
       location: {
@@ -201,6 +261,18 @@ export const offers: Offer[] = [
       zoom: 16
     },
     goods: ['Coffee machine', 'Fridge', 'Towels', 'Heating', 'Baby seat'],
+    images: ['https://15.design.htmlacademy.pro/static/hotel/19.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/20.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/1.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/2.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/3.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/4.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/5.jpg'],
+    host: {
+      name: 'Oliver Conner',
+      avatarUrl: 'https://url-to-image/image.png',
+      isPro: false,
+    },
   },
   {
     id: '8',
@@ -213,7 +285,7 @@ export const offers: Offer[] = [
     rating: 4.3,
     bedrooms: 1,
     maxAdults: 1,
-    images: ['./../../../markup/img/apartment-01.jpg'],
+    previewImage: '1',
     city: {
       name: 'Hamburg',
       location: {
@@ -228,6 +300,18 @@ export const offers: Offer[] = [
       zoom: 16
     },
     goods: ['Coffee machine', 'Fridge', 'Towels', 'Heating', 'Baby seat'],
+    images: ['https://15.design.htmlacademy.pro/static/hotel/19.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/20.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/1.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/2.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/3.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/4.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/5.jpg'],
+    host: {
+      name: 'Oliver Conner',
+      avatarUrl: 'https://url-to-image/image.png',
+      isPro: false,
+    },
   },
   {
     id: '9',
@@ -240,7 +324,7 @@ export const offers: Offer[] = [
     rating: 5,
     bedrooms: 5,
     maxAdults: 10,
-    images: ['./../../../markup/img/apartment-03.jpg'],
+    previewImage: '1',
     city: {
       name: 'Dusseldorf',
       location: {
@@ -255,5 +339,17 @@ export const offers: Offer[] = [
       zoom: 16
     },
     goods: ['Coffee machine', 'Fridge', 'Towels', 'Heating', 'Baby seat'],
+    images: ['https://15.design.htmlacademy.pro/static/hotel/19.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/20.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/1.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/2.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/3.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/4.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/5.jpg'],
+    host: {
+      name: 'Oliver Conner',
+      avatarUrl: 'https://url-to-image/image.png',
+      isPro: false,
+    },
   },
 ];

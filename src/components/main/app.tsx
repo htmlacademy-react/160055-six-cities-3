@@ -1,4 +1,5 @@
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
+import { useEffect } from 'react';
 import {HelmetProvider} from 'react-helmet-async';
 import IndexPage from '../../pages/index-page/index-page';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
@@ -9,8 +10,9 @@ import {AppRoute, AuthorizationStatus} from '../../const';
 import PrivateRoute from '../private-route/private-route';
 import {Offers} from '../../types/offer-type';
 import { Reviews } from '../../types/review-type';
-import { useAppSelector } from '../../hooks/store';
+import { useAppDispatch, useAppSelector } from '../../hooks/store';
 import { offersSelectors } from '../../store/slices/offers';
+import { fetchAllOffers } from '../../store/thunks/offers';
 
 type Props = {
   favoriteOffers: Offers;
@@ -20,6 +22,10 @@ type Props = {
 
 function App({favoriteOffers, reviews, cities}: Props): JSX.Element {
   const currentCity = useAppSelector(offersSelectors.city);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(fetchAllOffers());
+  });
 
   return (
     <HelmetProvider>

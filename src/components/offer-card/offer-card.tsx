@@ -11,10 +11,9 @@ type OfferProp = {
 
 function OfferCard(props: OfferProp): JSX.Element {
   const {offer, onOfferHover, onOfferLeave} = props;
-  const {id, type, title, price, isPremium, isFavorite, rating, images} = offer;
+  const {id, type, title, price, isPremium, isFavorite, rating, previewImage} = offer;
 
   const ratingInStar = `${rating / 5 * 100}%`;
-  const firstImage = images[0];
 
   const handleOfferHover = (event: MouseEvent<HTMLLIElement>) => {
     onOfferHover(event.currentTarget.dataset.id);
@@ -36,7 +35,7 @@ function OfferCard(props: OfferProp): JSX.Element {
         <Link to={`${AppRoute.Offer}/${id}`}>
           <img
             className="place-card__image"
-            src={firstImage}
+            src={previewImage}
             width={260}
             height={200}
             alt={id + title + type}

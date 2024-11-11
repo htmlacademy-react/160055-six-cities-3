@@ -1,3 +1,4 @@
+import { User } from './review-type';
 export type Offer = {
   id: string;
   title: string;
@@ -6,19 +7,26 @@ export type Offer = {
   isFavorite: boolean;
   isPremium: boolean;
   rating: number;
-  images: string[];
-  description: string;
-  bedrooms: number;
-  maxAdults: number;
-  goods: string[];
+  previewImage: string;
   city: City;
-  location: {
-    latitude: number;
-    longitude: number;
-    zoom: number;
-  };
+  location: Location;
 }
 export type Offers = Offer[];
+
+export type Location = {
+  latitude: number;
+  longitude: number;
+  zoom: number;
+};
+
+export type FullOffer = Offer & {
+  goods: string[];
+  bedrooms: number;
+  maxAdults: number;
+  description: string;
+  images: string[];
+  host: User;
+};
 
 export type City = {
   name: string;
@@ -26,9 +34,3 @@ export type City = {
 };
 
 export type Cities = City[];
-
-export type Location = {
-  latitude: number;
-  longitude: number;
-  zoom: number;
-}

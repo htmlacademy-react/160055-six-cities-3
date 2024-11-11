@@ -4,8 +4,7 @@ import { useState } from 'react';
 import NotFoundPage from '../not-found-page/not-found-page';
 import Header from '../../components/header/header';
 import ReviewOfferForm from '../../components/reviews/review-offer-form';
-import {Offer} from '../../types/offer-type';
-import {offers} from '../../mocks/offers';
+import {FullOffer} from '../../types/offer-type';
 import ReviewOfferList from '../../components/reviews/review-offer-list';
 import { Reviews } from '../../types/review-type';
 import Map from '../../components/map/map';
@@ -19,10 +18,11 @@ type Props = {
 }
 
 function OfferPage({reviews, currentCity}: Props): JSX.Element {
+  const offers = useAppSelector(offersSelectors.offers);
   const {id} = useParams();
-  const currentOffer: Offer | undefined = offers.find((offer: Offer) => offer.id === id);
+  const currentOffer: FullOffer | undefined = offers.find((offer: FullOffer) => offer.id === id);
   const nearOffers = useAppSelector(offersSelectors.offers);
-  const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(
+  const [selectedOffer, setSelectedOffer] = useState<FullOffer | undefined>(
     undefined
   );
 
@@ -51,13 +51,48 @@ function OfferPage({reviews, currentCity}: Props): JSX.Element {
         <section className="offer">
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
-              {
-                currentOffer?.images.map((url, index) => (
-                  <div key={url} className="offer__image-wrapper">
-                    <img className="offer__image" src={url} alt={url + index}/>
-                  </div>
-                ))
-              }
+              <div className="offer__image-wrapper">
+                <img
+                  className="offer__image"
+                  src="img/room.jpg"
+                  alt="Photo studio"
+                />
+              </div>
+              <div className="offer__image-wrapper">
+                <img
+                  className="offer__image"
+                  src="img/apartment-01.jpg"
+                  alt="Photo studio"
+                />
+              </div>
+              <div className="offer__image-wrapper">
+                <img
+                  className="offer__image"
+                  src="img/apartment-02.jpg"
+                  alt="Photo studio"
+                />
+              </div>
+              <div className="offer__image-wrapper">
+                <img
+                  className="offer__image"
+                  src="img/apartment-03.jpg"
+                  alt="Photo studio"
+                />
+              </div>
+              <div className="offer__image-wrapper">
+                <img
+                  className="offer__image"
+                  src="img/studio-01.jpg"
+                  alt="Photo studio"
+                />
+              </div>
+              <div className="offer__image-wrapper">
+                <img
+                  className="offer__image"
+                  src="img/apartment-01.jpg"
+                  alt="Photo studio"
+                />
+              </div>
             </div>
           </div>
           <div className="offer__container container">
@@ -99,13 +134,16 @@ function OfferPage({reviews, currentCity}: Props): JSX.Element {
               <div className="offer__inside">
                 <h2 className="offer__inside-title">What&apos;s inside</h2>
                 <ul className="offer__inside-list">
-                  {
-                    currentOffer.goods.map((good) => (
-                      <li key={good} className="offer__inside-item">
-                        {good}
-                      </li>
-                    ))
-                  }
+                  <li className="offer__inside-item">Wi-Fi</li>
+                  <li className="offer__inside-item">Washing machine</li>
+                  <li className="offer__inside-item">Towels</li>
+                  <li className="offer__inside-item">Heating</li>
+                  <li className="offer__inside-item">Coffee machine</li>
+                  <li className="offer__inside-item">Baby seat</li>
+                  <li className="offer__inside-item">Kitchen</li>
+                  <li className="offer__inside-item">Dishwasher</li>
+                  <li className="offer__inside-item">Cabel TV</li>
+                  <li className="offer__inside-item">Fridge</li>
                 </ul>
               </div>
               <div className="offer__host">

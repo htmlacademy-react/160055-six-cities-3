@@ -7,7 +7,7 @@ import Map from '../../components/map/map';
 import CitiesList from '../../components/cities/cities';
 import { useAppSelector } from '../../hooks/store';
 import { offersSelectors } from '../../store/slices/offers';
-import { SortOption } from '../../const';
+import { RequestStatus, SortOption } from '../../const';
 import { Sort } from '../../components/sort/sort';
 
 type Props = {
@@ -17,13 +17,15 @@ type Props = {
 function IndexPage({cities}: Props): JSX.Element {
   const offers = useAppSelector(offersSelectors.offers);
   const currentCity = useAppSelector(offersSelectors.city);
+  const status = useAppSelector(offersSelectors.offersStatus);
+  const currentOffers = offers.filter((offer) => offer.city.name === currentCity);
 
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(
     undefined
   );
 
   const handleOfferHover = (listItemId: string | undefined) => {
-    const currentOffer = offers.find((offer) => offer.id === listItemId);
+    const currentOffer = currentOffers.find((offer) => offer.id === listItemId);
 
     setSelectedOffer(currentOffer);
   };
@@ -32,11 +34,13 @@ function IndexPage({cities}: Props): JSX.Element {
     setSelectedOffer(undefined);
   };
 
-  const currentOffers = useAppSelector(offersSelectors.cityOffers);
-
   const [activeSort, setActiveSort] = useState(SortOption.Popular);
 
   let sortedOffers = currentOffers;
+
+  if(status === RequestStatus.Loading) {
+    return <div>Loading...</div>;
+  }
 
   switch(activeSort) {
     case SortOption.TopRatedFirst:
