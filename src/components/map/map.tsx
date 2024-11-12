@@ -4,6 +4,8 @@ import useMap from '../../hooks/use-map';
 import { City, Offers, Offer } from '../../types/offer-type';
 import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../const';
 import 'leaflet/dist/leaflet.css';
+import { useAppSelector } from '../../hooks/store';
+import { offersSelectors } from '../../store/slices/offers';
 
 const EMPTY_LOCATION: City = {
   name: '',
@@ -16,7 +18,6 @@ const EMPTY_LOCATION: City = {
 
 type MapProps = {
   offers: Offers;
-  selectedOffer: Offer | undefined;
   className?: string;
   currentCity: string;
 };
@@ -34,9 +35,10 @@ const currentCustomIcon = new Icon({
 });
 
 function Map(props: MapProps): JSX.Element {
-  const {offers, selectedOffer, className, currentCity} = props;
+  const {offers, className, currentCity} = props;
 
   const offer = offers.find((item)=> item.city.name === currentCity);
+  const activeId = useAppSelector(offersSelectors.activeId);
 
   const getOfferCity = (offerCityObject: Offer | undefined): City => {
     if(offerCityObject) {
@@ -60,7 +62,7 @@ function Map(props: MapProps): JSX.Element {
 
         marker
           .setIcon(
-            selectedOffer !== undefined && item.id === selectedOffer.id
+            item.id !== undefined && item.id === activeId
               ? currentCustomIcon
               : defaultCustomIcon
           )
@@ -71,7 +73,7 @@ function Map(props: MapProps): JSX.Element {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, offers, selectedOffer, currentCity]);
+  }, [map, offers, activeId, currentCity]);
 
   return <section className={`map ${className}`} ref={mapRef} />;
 }

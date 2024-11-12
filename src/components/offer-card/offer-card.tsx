@@ -1,34 +1,21 @@
+import {HTMLAttributes} from 'react';
 import {Offer} from '../../types/offer-type';
-import {MouseEvent} from 'react';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
 
-type OfferProp = {
-  offer: Offer;
-  onOfferHover: (listItemId: string | undefined) => void;
-  onOfferLeave: () => void;
-}
+type HTMLProps = Pick<HTMLAttributes<HTMLElement>, 'onMouseEnter' | 'onMouseLeave'>;
+type OfferProps = Offer & HTMLProps;
 
-function OfferCard(props: OfferProp): JSX.Element {
-  const {offer, onOfferHover, onOfferLeave} = props;
-  const {id, type, title, price, isPremium, isFavorite, rating, images} = offer;
+function OfferCard(props: OfferProps): JSX.Element {
+  const {id, type, title, price, isPremium, isFavorite, rating, previewImage, onMouseEnter, onMouseLeave} = props;
 
   const ratingInStar = `${rating / 5 * 100}%`;
-  const firstImage = images[0];
-
-  const handleOfferHover = (event: MouseEvent<HTMLLIElement>) => {
-    onOfferHover(event.currentTarget.dataset.id);
-  };
-
-  const handleOfferLeave = () => {
-    onOfferLeave();
-  };
 
   return (
     <article
       className="cities__card place-card"
-      onMouseEnter={handleOfferHover}
-      onMouseLeave={handleOfferLeave}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
       data-id={id}
     >
       {isPremium ? <div className="place-card__mark"><span>Premium</span></div> : ''}
@@ -36,7 +23,7 @@ function OfferCard(props: OfferProp): JSX.Element {
         <Link to={`${AppRoute.Offer}/${id}`}>
           <img
             className="place-card__image"
-            src={firstImage}
+            src={previewImage}
             width={260}
             height={200}
             alt={id + title + type}
