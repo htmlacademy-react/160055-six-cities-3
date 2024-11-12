@@ -1,14 +1,13 @@
-import { useState } from 'react';
+import { useState, MouseEvent } from 'react';
 import {Helmet} from 'react-helmet-async';
 import Header from '../../components/header/header';
-import OffersCardsList from '../../components/offer-card/offers-cards-list';
-import {Offer} from '../../types/offer-type';
 import Map from '../../components/map/map';
 import CitiesList from '../../components/cities/cities';
-import { useAppSelector } from '../../hooks/store';
-import { offersSelectors } from '../../store/slices/offers';
+import { useActionCreators, useAppSelector } from '../../hooks/store';
+import { offersActions, offersSelectors } from '../../store/slices/offers';
 import { RequestStatus, SortOption } from '../../const';
 import { Sort } from '../../components/sort/sort';
+import OfferCard from '../../components/offer-card/offer-card';
 
 type Props = {
   cities: string[];
@@ -18,20 +17,17 @@ function IndexPage({cities}: Props): JSX.Element {
   const offers = useAppSelector(offersSelectors.offers);
   const currentCity = useAppSelector(offersSelectors.city);
   const status = useAppSelector(offersSelectors.offersStatus);
+  const {setActiveId} = useActionCreators(offersActions);
   const currentOffers = offers.filter((offer) => offer.city.name === currentCity);
 
-  const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(
-    undefined
-  );
-
-  const handleOfferHover = (listItemId: string | undefined) => {
-    const currentOffer = currentOffers.find((offer) => offer.id === listItemId);
-
-    setSelectedOffer(currentOffer);
+  const handleOfferHover = (evt: MouseEvent<HTMLElement>) => {
+    const target = evt.currentTarget as HTMLElement;
+    const id = target.dataset.id;
+    setActiveId(id);
   };
 
   const handleOfferLeave = () => {
-    setSelectedOffer(undefined);
+    setActiveId(undefined);
   };
 
   const [activeSort, setActiveSort] = useState(SortOption.Popular);
@@ -77,11 +73,12 @@ function IndexPage({cities}: Props): JSX.Element {
               <b className="places__found">{currentOffers.length} place{currentOffers.length > 1 && 's'} to stay in {currentCity}</b>
               <Sort current={activeSort} setter={setActiveSort} />
               <div className="cities__places-list places__list tabs__content">
-                <OffersCardsList offers={sortedOffers} onOfferHover={handleOfferHover} onOfferLeave={handleOfferLeave} />
+                {sortedOffers.map((offer) => (<OfferCard {...offer} onMouseEnter={handleOfferHover} onMouseLeave={handleOfferLeave} key={offer.id} />))}
+                {/* <OffersCardsList offers={sortedOffers} onOfferHover={handleOfferHover} onOfferLeave={handleOfferLeave} /> */}
               </div>
             </section>
             <div className="cities__right-section">
-              <Map offers={offers} selectedOffer={selectedOffer} currentCity = {currentCity} className='cities__map' />
+              <Map offers={offers} currentCity = {currentCity} className='cities__map' />
             </div>
           </div>
         </div>

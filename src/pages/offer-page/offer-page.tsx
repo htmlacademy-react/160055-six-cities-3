@@ -1,6 +1,6 @@
 import {Helmet} from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
-import { useState } from 'react';
+import { MouseEvent } from 'react';
 import NotFoundPage from '../not-found-page/not-found-page';
 import Header from '../../components/header/header';
 import ReviewOfferForm from '../../components/reviews/review-offer-form';
@@ -8,8 +8,9 @@ import {FullOffer} from '../../types/offer-type';
 import ReviewOfferList from '../../components/reviews/review-offer-list';
 import { Reviews } from '../../types/review-type';
 import Map from '../../components/map/map';
-import OffersCardsList from '../../components/offer-card/offers-cards-list';
-import { useAppSelector } from '../../hooks/store';
+import OfferCard from '../../components/offer-card/offer-card';
+import { useAppSelector, useActionCreators} from '../../hooks/store';
+import { offersActions } from '../../store/slices/offers';
 import { offersSelectors } from '../../store/slices/offers';
 
 type Props = {
@@ -22,18 +23,16 @@ function OfferPage({reviews, currentCity}: Props): JSX.Element {
   const {id} = useParams();
   const currentOffer: FullOffer | undefined = offers.find((offer: FullOffer) => offer.id === id);
   const nearOffers = useAppSelector(offersSelectors.offers);
-  const [selectedOffer, setSelectedOffer] = useState<FullOffer | undefined>(
-    undefined
-  );
+  const {setActiveId} = useActionCreators(offersActions);
 
-  const handleOfferHover = (listItemId: string | undefined) => {
-    const currentOtherOffer = offers.find((offer) => offer.id === listItemId);
-
-    setSelectedOffer(currentOtherOffer);
+  const handleOfferHover = (evt: MouseEvent<HTMLElement>) => {
+    const target = evt.currentTarget as HTMLElement;
+    const idOffer = target.dataset.id;
+    setActiveId(idOffer);
   };
 
   const handleOfferLeave = () => {
-    setSelectedOffer(undefined);
+    setActiveId(undefined);
   };
 
   if (!currentOffer) {
@@ -177,13 +176,13 @@ function OfferPage({reviews, currentCity}: Props): JSX.Element {
               </section>
             </div>
           </div>
-          <Map offers={nearOffers} selectedOffer={selectedOffer} currentCity = {currentCity} className='offer__map' />
+          <Map offers={nearOffers} currentCity = {currentCity} className='offer__map' />
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <OffersCardsList offers={nearOffers} onOfferHover={handleOfferHover} onOfferLeave={handleOfferLeave} />
+              {nearOffers.map((offer) => (<OfferCard {...offer} onMouseEnter={handleOfferHover} onMouseLeave={handleOfferLeave} key={offer.id} />))}
             </div>
           </section>
         </div>

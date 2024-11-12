@@ -10,6 +10,7 @@ interface OffersState {
   offers: FullOffer[];
   status: RequestStatus;
   city: string;
+  activeId?: FullOffer['id'];
 }
 
 const initialState: OffersState = {
@@ -37,12 +38,16 @@ const offersSlice = createSlice({
   reducers: {
     setCity: (state, action: PayloadAction<string>) => {
       state.city = action.payload;
+    },
+    setActiveId(state, action: PayloadAction<FullOffer['id'] | undefined>) {
+      state.activeId = action.payload;
     }
   },
   selectors: {
     city: (state) => state.city,
     offers: (state) => state.offers,
     offersStatus: (state) => state.status,
+    activeId: (state) => state.activeId,
   },
 });
 
