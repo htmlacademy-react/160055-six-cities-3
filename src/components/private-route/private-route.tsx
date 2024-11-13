@@ -1,19 +1,33 @@
-import {Navigate} from 'react-router-dom';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import type { ReactNode } from 'react';
+import type { Location } from 'react-router-dom';
 
-type PrivateRouteProps = {
-  authorizationStatus: AuthorizationStatus;
-  children: JSX.Element;
+import { Navigate, useLocation } from 'react-router-dom';
+import { AppRoute } from '../../const';
+import { useAppSelector } from '../../hooks/store';
+import { userSelectors } from '../../store/slices/user';
+
+type TProtectedRouteProps = {
+  children: ReactNode;
+  onlyUnAuth?: boolean;
+};
+
+type FromState = {
+  from?: Location;
+};
+
+export default function ProtectedRoute({ children, onlyUnAuth}: TProtectedRouteProps) {
+  const location: Location<FromState> = useLocation() as Location<FromState>;
+
+  const user = useAppSelector(userSelectors.user);
+
+  if (onlyUnAuth && user) {
+    const from = location.state?.from || {pathname: AppRoute.Main};
+    return <Navigate to={from} />;
+  }
+
+  if (!onlyUnAuth && !user) {
+    return <Navigate state={{from: location}} to={AppRoute.Login} />;
+  }
+
+  return children;
 }
-
-function PrivateRoute(props: PrivateRouteProps): JSX.Element {
-  const {authorizationStatus, children} = props;
-
-  return (
-    authorizationStatus === AuthorizationStatus.Auth
-      ? children
-      : <Navigate to={AppRoute.Login} />
-  );
-}
-
-export default PrivateRoute;

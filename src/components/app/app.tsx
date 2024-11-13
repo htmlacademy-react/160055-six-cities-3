@@ -6,13 +6,14 @@ import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import LoginPage from '../../pages/login-page/login-page';
 import OfferPage from '../../pages/offer-page/offer-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
-import {AppRoute, AuthorizationStatus} from '../../const';
-import PrivateRoute from '../private-route/private-route';
+import {AppRoute} from '../../const';
 import {FullOffer} from '../../types/offer-type';
 import { Reviews } from '../../types/review-type';
-import { useAppDispatch, useAppSelector } from '../../hooks/store';
+import { useActionCreators, useAppSelector } from '../../hooks/store';
 import { offersSelectors } from '../../store/slices/offers';
-import { fetchAllOffers } from '../../store/thunks/offers';
+import { getToken } from '../../services/token';
+import { userActions } from '../../store/slices/user';
+import ProtectedRoute from '../private-route/private-route';
 
 type Props = {
   favoriteOffers: FullOffer[];
@@ -22,10 +23,13 @@ type Props = {
 
 function App({favoriteOffers, reviews, cities}: Props): JSX.Element {
   const currentCity = useAppSelector(offersSelectors.city);
-  const dispatch = useAppDispatch();
+  const {checkAuth} = useActionCreators(userActions);
+  const token = getToken();
   useEffect(() => {
-    dispatch(fetchAllOffers());
-  });
+    if (token) {
+      checkAuth();
+    }
+  }, [token, checkAuth]);
 
   return (
     <HelmetProvider>
@@ -37,14 +41,18 @@ function App({favoriteOffers, reviews, cities}: Props): JSX.Element {
           />
           <Route
             path={AppRoute.Login}
-            element={<LoginPage />}
+            element={
+              <ProtectedRoute onlyUnAuth>
+                <LoginPage />
+              </ProtectedRoute>
+            }
           />
           <Route
             path={AppRoute.Favorites}
             element={
-              <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+              <ProtectedRoute>
                 <FavoritesPage favoriteOffers={favoriteOffers} />
-              </PrivateRoute>
+              </ProtectedRoute>
             }
           />
           <Route
