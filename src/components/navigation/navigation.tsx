@@ -3,19 +3,8 @@ import { AppRoute } from '../../const';
 import { useAuth } from '../../hooks/use-auth';
 import LoginNavigation from '../login-navigation/login-navigation';
 
-type NavigationProps = {
-  pathname: string;
-};
-
-function Navigation({ pathname }: NavigationProps): JSX.Element {
-  const location = pathname;
-  const loginLink: string = AppRoute.Login;
-  const isLoginPage = loginLink === location;
+function Navigation(): JSX.Element {
   const isAuthorized = useAuth();
-
-  if (isLoginPage) {
-    return <nav className="header__nav"></nav>;
-  }
 
   return (
     <nav className="header__nav">

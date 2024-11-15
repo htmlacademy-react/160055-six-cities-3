@@ -1,9 +1,7 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import Navigation from '../navigation/navigation';
 function Header(): JSX.Element {
-  const { pathname } = useLocation() as { pathname: AppRoute };
-
   return (
     <header className="header">
       <div className="container">
@@ -13,7 +11,7 @@ function Header(): JSX.Element {
               <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width={81} height={41} />
             </Link>
           </div>
-          <Navigation pathname={pathname} />
+          <Navigation />
         </div>
       </div>
     </header>

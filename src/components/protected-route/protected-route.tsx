@@ -6,7 +6,7 @@ import { AppRoute } from '../../const';
 import { useAppSelector } from '../../hooks/store';
 import { userSelectors } from '../../store/slices/user';
 
-type TProtectedRouteProps = {
+type ProtectedRouteProps = {
   children: ReactNode;
   onlyUnAuth?: boolean;
 };
@@ -15,7 +15,7 @@ type FromState = {
   from?: Location;
 };
 
-export default function ProtectedRoute({ children, onlyUnAuth}: TProtectedRouteProps) {
+export default function ProtectedRoute({ children, onlyUnAuth}: ProtectedRouteProps) {
   const location: Location<FromState> = useLocation() as Location<FromState>;
 
   const user = useAppSelector(userSelectors.user);

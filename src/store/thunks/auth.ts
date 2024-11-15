@@ -1,11 +1,11 @@
 import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import type { User } from '../../types/review-type';
+import { UserLogin } from '../../types/user-type';
 import { Endpoint } from '../../const';
 import { dropToken, saveToken } from '../../services/token';
 
-export const checkAuth = createAsyncThunk<User, undefined, {extra: AxiosInstance}>('auth/checkAuth', async (_arg, {extra: api}) => {
-  const response = await api.get<User>(Endpoint.Login);
+export const checkAuth = createAsyncThunk<UserLogin, undefined, {extra: AxiosInstance}>('auth/checkAuth', async (_arg, {extra: api}) => {
+  const response = await api.get<UserLogin>(Endpoint.Login);
   return response.data;
 });
 
@@ -14,8 +14,8 @@ interface LoginData {
   password: string;
 }
 
-export const login = createAsyncThunk<User, LoginData, {extra: AxiosInstance}>('auth/login', async (body, {extra: api}) => {
-  const response = await api.post<User>(Endpoint.Login, body);
+export const login = createAsyncThunk<UserLogin, LoginData, {extra: AxiosInstance}>('auth/login', async (body, {extra: api}) => {
+  const response = await api.post<UserLogin>(Endpoint.Login, body);
   saveToken(response.data.token);
   return response.data;
 });
