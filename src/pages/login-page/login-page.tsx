@@ -67,11 +67,11 @@ function LoginPage(): JSX.Element {
             <form className="login__form form" action="#" method="post" onSubmit={handleSubmit}>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
-                <input className="login__input form__input" type="email" name="email" placeholder="Email" ref={loginRef} required />
+                <input className="login__input form__input" type="email" name="email" placeholder="Email" ref={loginRef} pattern="/^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i" required />
               </div>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">Password</label>
-                <input className="login__input form__input" type="password" name="password" placeholder="Password" ref={passwordRef} required />
+                <input className="login__input form__input" type="password" name="password" placeholder="Password" ref={passwordRef} pattern="^(?=.*[a-zA-Z])(?=.*\d).+$" required />
               </div>
               <button className="login__submit form__submit button" type="submit">Sign in</button>
             </form>
