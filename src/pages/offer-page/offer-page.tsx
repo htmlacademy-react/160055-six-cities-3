@@ -4,7 +4,6 @@ import { MouseEvent } from 'react';
 import NotFoundPage from '../not-found-page/not-found-page';
 import Header from '../../components/header/header';
 import ReviewOfferForm from '../../components/reviews/review-offer-form';
-import {FullOffer} from '../../types/offer-type';
 import ReviewOfferList from '../../components/reviews/review-offer-list';
 import { Reviews } from '../../types/review-type';
 import Map from '../../components/map/map';
@@ -21,7 +20,7 @@ type Props = {
 function OfferPage({reviews, currentCity}: Props): JSX.Element {
   const offers = useAppSelector(offersSelectors.offers);
   const {id} = useParams();
-  const currentOffer: FullOffer | undefined = offers.find((offer: FullOffer) => offer.id === id);
+  const currentOffer = offers.find((offer) => offer.id === id);
   const nearOffers = useAppSelector(offersSelectors.offers);
   const {setActiveId} = useActionCreators(offersActions);
 

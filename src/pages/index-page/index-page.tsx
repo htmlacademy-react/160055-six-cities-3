@@ -1,4 +1,4 @@
-import { useState, MouseEvent } from 'react';
+import { useState, MouseEvent, useEffect } from 'react';
 import {Helmet} from 'react-helmet-async';
 import Header from '../../components/header/header';
 import Map from '../../components/map/map';
@@ -17,7 +17,14 @@ function IndexPage({cities}: Props): JSX.Element {
   const offers = useAppSelector(offersSelectors.offers);
   const currentCity = useAppSelector(offersSelectors.city);
   const status = useAppSelector(offersSelectors.offersStatus);
-  const {setActiveId} = useActionCreators(offersActions);
+  const {setActiveId, fetchAllOffers} = useActionCreators(offersActions);
+
+  useEffect(() => {
+    if (status === RequestStatus.Idle) {
+      fetchAllOffers();
+    }
+  }, [fetchAllOffers, status]);
+
   const currentOffers = offers.filter((offer) => offer.city.name === currentCity);
 
   const handleOfferHover = (evt: MouseEvent<HTMLElement>) => {

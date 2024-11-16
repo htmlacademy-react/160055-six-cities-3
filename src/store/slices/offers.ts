@@ -19,7 +19,7 @@ const initialState: OffersState = {
   offers: [],
 };
 
-const offersSlice = createSlice({
+export const offersSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchAllOffers.pending, (state) => {
@@ -51,11 +51,9 @@ const offersSlice = createSlice({
   },
 });
 
-const offersActions = {...offersSlice.actions, fetchAllOffers};
-const offersSelectors = offersSlice.selectors;
+export const offersActions = {...offersSlice.actions, fetchAllOffers};
+export const offersSelectors = offersSlice.selectors;
 // {
 //   ...offersSlice.selectors,
 //   cityOffers: createSelector(offersSlice.selectors.offers, offersSlice.selectors.city, (allOffers, city) => allOffers.filter((offer) => offer.city.name === city)),
 // };
-
-export {offersActions, offersSelectors, offersSlice};
