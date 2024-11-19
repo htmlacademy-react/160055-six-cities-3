@@ -1,71 +1,95 @@
-import { useState, ChangeEvent, Fragment } from 'react';
+import { useState, FormEvent, useRef } from 'react';
+import { useActionCreators } from '../../hooks/store';
+import { reviewsActions } from '../../store/slices/reviews';
+import { toast } from 'react-toastify';
+import { ReviewSend } from '../../types/review-type';
+import FormRating from './review-form-rating';
 
-const rating = [
-  {value: 5, label: 'perfect'},
-  {value: 4, label: 'good'},
-  {value: 3, label: 'not bad'},
-  {value: 2, label: 'badly'},
-  {value: 1, label: 'terribly'},
-];
+const REVIEW_MIN_LENGTH = 50;
+const REVIEW_MAX_LENGTH = 300;
 
+type Form = HTMLFormElement & {
+  rating: RadioNodeList;
+  review: HTMLTextAreaElement;
+}
 
-function ReviewOfferForm(): JSX.Element {
-  const [, setReviewText] = useState('');
-  const handleReviewTextChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
-    setReviewText(evt.target.value);
+const shouldDisableForm = (form: Form): boolean => {
+  const rating = form.rating.value;
+  const review = form.review.value;
+  return review.length < REVIEW_MIN_LENGTH || review.length > REVIEW_MAX_LENGTH || !rating;
+};
+
+type Props = {
+  offerId: string;
+}
+
+function ReviewOfferForm({offerId}: Props): JSX.Element {
+  const [isSubmitDisabled, setSubmitDisabled] = useState(true);
+  const formRef = useRef(null);
+  const {postComment} = useActionCreators(reviewsActions);
+  const [isDisabled, setDisabled] = useState(false);
+
+  const handleFormChange = (evt: React.FormEvent<HTMLFormElement>) => {
+    const form = evt.currentTarget as Form;
+
+    setSubmitDisabled(shouldDisableForm(form));
   };
 
-  const [, setRating] = useState(0);
-  const handleRatingStarClick = (evt: ChangeEvent<HTMLInputElement>) => {
-    setRating(Number(evt.target.value));
+  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    const form = evt.currentTarget as Form;
+    const reviewToSend: ReviewSend = {
+      offerId,
+      body: {
+        comment: form.review.value,
+        rating: +form.rating.value,
+      },
+    };
+    setDisabled(true);
+    toast.promise(postComment(reviewToSend)
+      .unwrap(), {
+      pending: 'Sending...',
+      success: {
+        render: () => {
+          setDisabled(false);
+          setSubmitDisabled(true);
+          form.reset();
+          return 'Sent!';
+        }
+      },
+      error: {
+        render() {
+          setDisabled(false);
+          return 'Failed to send review. Please try again';
+        }
+      }
+    });
   };
 
   return (
-    <form className="reviews__form form" action="#" method="post">
-      <label className="reviews__label form__label" htmlFor="review">Your review</label>
-      <div className="reviews__rating-form form__rating">
-        {
-          rating.map(({value, label}) => (
-            <Fragment key={value}>
-              <input
-                // defaultValue={5}
-                onChange = {handleRatingStarClick}
-                className="form__rating-input visually-hidden"
-                name="rating"
-                value={value}
-                id={`${value}-stars`}
-                type="radio"
-              />
-              <label
-                htmlFor={`${value}-stars`}
-                className="reviews__rating-label form__rating-label"
-                title={label}
-              >
-                <svg className="form__star-image" width={37} height={33}>
-                  <use xlinkHref="#icon-star"></use>
-                </svg>
-              </label>
-            </Fragment>
-          ))
-        }
-      </div>
+    <form className="reviews__form form" action="#" method="post" onChange={handleFormChange} onSubmit={handleFormSubmit} ref={formRef}>
+      <label className="reviews__label form__label" htmlFor="review">
+        Your review
+      </label>
+      <FormRating isDisabled={isDisabled} />
       <textarea
-        defaultValue={''}
-        onChange={handleReviewTextChange}
         className="reviews__textarea form__textarea"
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-      >
-      </textarea>
+        disabled={isDisabled}
+      />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
-          To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
+          To submit review please make sure to set{' '}
+          <span className="reviews__star">rating</span> and describe
+          your stay with at least{' '}
+          <b className="reviews__text-amount">50 characters</b>.
         </p>
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled
+          disabled={isSubmitDisabled}
         >
           Submit
         </button>

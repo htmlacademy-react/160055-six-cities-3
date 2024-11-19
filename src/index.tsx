@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 import App from './components/app/app';
 import {favoriteOffers} from './mocks/favorite-offers';
 import { CITIES } from './const';
-import {reviews} from './mocks/reviews';
 import { store } from './store';
 import { getToken } from './services/token';
 import { userActions } from './store/slices/user';
@@ -20,7 +19,7 @@ store.dispatch(
 root.render(
   <React.StrictMode>
     <Provider store = {store}>
-      <App favoriteOffers={favoriteOffers} cities={CITIES} reviews={reviews} />
+      <App favoriteOffers={favoriteOffers} cities={CITIES} />
     </Provider>
   </React.StrictMode>
 );
