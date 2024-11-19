@@ -7,18 +7,16 @@ import OfferPage from '../../pages/offer-page/offer-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import {AppRoute} from '../../const';
 import {FullOffer} from '../../types/offer-type';
-import { Reviews } from '../../types/review-type';
 import { useAppSelector } from '../../hooks/store';
 import { offersSelectors } from '../../store/slices/offers';
 import ProtectedRoute from '../protected-route/protected-route';
 
 type Props = {
   favoriteOffers: FullOffer[];
-  reviews: Reviews;
   cities: string[];
 }
 
-function App({favoriteOffers, reviews, cities}: Props): JSX.Element {
+function App({favoriteOffers, cities}: Props): JSX.Element {
   const currentCity = useAppSelector(offersSelectors.city);
 
   return (
@@ -47,7 +45,7 @@ function App({favoriteOffers, reviews, cities}: Props): JSX.Element {
           />
           <Route
             path={`${AppRoute.Offer}/:id`}
-            element={<OfferPage reviews={reviews} currentCity={currentCity} />}
+            element={<OfferPage currentCity={currentCity} />}
           />
           <Route
             path="*"

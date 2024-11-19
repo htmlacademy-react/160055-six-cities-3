@@ -2,10 +2,10 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { RequestStatus, AuthorizationStatus } from '../../const';
 import { checkAuth, login, logout } from '../thunks/auth';
-import { UserLogin } from '../../types/user-type';
+import { User } from '../../types/review-type';
 
 interface UserState {
-  info: UserLogin | null;
+  info: User | null;
   requestStatus: RequestStatus;
   status: AuthorizationStatus;
 }
@@ -16,7 +16,7 @@ const initialState: UserState = {
   status: AuthorizationStatus.Unknown,
 };
 
-function processSuccess(state: UserState, action: PayloadAction<UserLogin>) {
+function processSuccess(state: UserState, action: PayloadAction<User>) {
   state.info = action.payload;
   state.status = AuthorizationStatus.Auth;
   state.requestStatus = RequestStatus.Success;

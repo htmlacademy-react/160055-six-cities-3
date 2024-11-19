@@ -44,16 +44,12 @@ export const offersSlice = createSlice({
     }
   },
   selectors: {
-    city: (state) => state.city,
-    offers: (state) => state.offers,
-    offersStatus: (state) => state.status,
-    activeId: (state) => state.activeId,
+    city: (state: OffersState) => state.city,
+    offers: (state: OffersState) => state.offers,
+    offersStatus: (state: OffersState) => state.status,
+    activeId: (state: OffersState) => state.activeId,
   },
 });
 
 export const offersActions = {...offersSlice.actions, fetchAllOffers};
 export const offersSelectors = offersSlice.selectors;
-// {
-//   ...offersSlice.selectors,
-//   cityOffers: createSelector(offersSlice.selectors.offers, offersSlice.selectors.city, (allOffers, city) => allOffers.filter((offer) => offer.city.name === city)),
-// };

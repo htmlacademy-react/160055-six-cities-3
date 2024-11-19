@@ -81,7 +81,6 @@ function IndexPage({cities}: Props): JSX.Element {
               <Sort current={activeSort} setter={setActiveSort} />
               <div className="cities__places-list places__list tabs__content">
                 {sortedOffers.map((offer) => (<OfferCard {...offer} onMouseEnter={handleOfferHover} onMouseLeave={handleOfferLeave} key={offer.id} />))}
-                {/* <OffersCardsList offers={sortedOffers} onOfferHover={handleOfferHover} onOfferLeave={handleOfferLeave} /> */}
               </div>
             </section>
             <div className="cities__right-section">

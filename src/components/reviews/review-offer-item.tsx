@@ -4,6 +4,10 @@ type ReviewItemProps = {
   review: Review;
 }
 
+function formatDate(date: string) {
+  return new Date(date).toLocaleDateString('en-US', {month: 'long', year: 'numeric'});
+}
+
 function ReviewOfferItem(props: ReviewItemProps): JSX.Element {
   const {review} = props;
   const {comment, date, rating, user} = review;
@@ -30,7 +34,7 @@ function ReviewOfferItem(props: ReviewItemProps): JSX.Element {
         <p className="reviews__text">
           {comment}
         </p>
-        <time className="reviews__time" dateTime={date}>{date}</time>
+        <time className="reviews__time" dateTime={date}>{formatDate(date)}</time>
       </div>
     </li>
   );

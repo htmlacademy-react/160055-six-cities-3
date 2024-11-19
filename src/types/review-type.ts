@@ -2,6 +2,8 @@ export type User = {
   name: string;
   avatarUrl: string;
   isPro: boolean;
+  token: string;
+  email: string;
 }
 
 export type Review = {
@@ -13,3 +15,11 @@ export type Review = {
 };
 
 export type Reviews = Review[];
+
+export type ReviewSend = {
+  offerId: string;
+  body: {
+    comment: string;
+    rating: number;
+  };
+}
