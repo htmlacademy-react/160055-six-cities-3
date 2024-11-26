@@ -4,7 +4,7 @@ import { useActionCreators, useAppSelector } from '../../hooks/store';
 import { offersSelectors } from '../../store/slices/offers';
 import { userActions, userSelectors } from '../../store/slices/user';
 
-function LoginNavigation() {
+function LoginNavigation(): JSX.Element {
   const user = useAppSelector(userSelectors.user);
   const {logout} = useActionCreators(userActions);
 

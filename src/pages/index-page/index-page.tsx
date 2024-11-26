@@ -6,7 +6,7 @@ import CitiesList from '../../components/cities/cities';
 import { useActionCreators, useAppSelector } from '../../hooks/store';
 import { offersActions, offersSelectors } from '../../store/slices/offers';
 import { RequestStatus, SortOption } from '../../const';
-import { Sort } from '../../components/sort/sort';
+import Sort from '../../components/sort/sort';
 import OfferCard from '../../components/offer-card/offer-card';
 
 type Props = {

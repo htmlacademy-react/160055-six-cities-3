@@ -1,9 +1,10 @@
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { useAuth } from '../../hooks/use-auth';
 import LoginNavigation from '../login-navigation/login-navigation';
 
-function Navigation(): JSX.Element {
+function NavigationComp(): JSX.Element {
   const isAuthorized = useAuth();
 
   return (
@@ -26,5 +27,7 @@ function Navigation(): JSX.Element {
     </nav>
   );
 }
+
+const Navigation = memo(NavigationComp);
 
 export default Navigation;
