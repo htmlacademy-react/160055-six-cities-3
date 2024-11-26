@@ -30,14 +30,14 @@ function ReviewOfferFormComp({offerId}: Props): JSX.Element {
   const [isDisabled, setDisabled] = useState(false);
 
   const handleFormChange = (evt: React.FormEvent<HTMLFormElement>) => {
-    const form = evt.target as Form;
+    const form = evt.currentTarget as Form;
 
     setSubmitDisabled(shouldDisableForm(form));
   };
 
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    const form = evt.target as Form;
+    const form = evt.currentTarget as Form;
     const reviewToSend: ReviewSend = {
       offerId,
       body: {
