@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Review } from '../../types/review-type';
 
 type ReviewItemProps = {
@@ -8,7 +9,7 @@ function formatDate(date: string) {
   return new Date(date).toLocaleDateString('en-US', {month: 'long', year: 'numeric'});
 }
 
-function ReviewOfferItem(props: ReviewItemProps): JSX.Element {
+function ReviewOfferItemComp(props: ReviewItemProps): JSX.Element {
   const {review} = props;
   const {comment, date, rating, user} = review;
 
@@ -39,4 +40,7 @@ function ReviewOfferItem(props: ReviewItemProps): JSX.Element {
     </li>
   );
 }
+
+const ReviewOfferItem = memo(ReviewOfferItemComp);
+
 export default ReviewOfferItem;

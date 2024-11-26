@@ -1,7 +1,9 @@
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import Navigation from '../navigation/navigation';
-function Header(): JSX.Element {
+
+function HeaderComp(): JSX.Element {
   return (
     <header className="header">
       <div className="container">
@@ -17,4 +19,7 @@ function Header(): JSX.Element {
     </header>
   );
 }
+
+const Header = memo(HeaderComp);
+
 export default Header;

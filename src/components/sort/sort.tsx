@@ -8,7 +8,7 @@ interface SortProps {
   setter: (option: SortOption) => void;
 }
 
-function Sort_({ current, setter }: SortProps) {
+function SortComp({ current, setter }: SortProps) {
   const { isOn, off, toggle } = useBoolean(false);
 
   useEffect(() => {
@@ -61,4 +61,6 @@ function Sort_({ current, setter }: SortProps) {
   );
 }
 
-export const Sort = memo(Sort_);
+const Sort = memo(SortComp);
+
+export default Sort;

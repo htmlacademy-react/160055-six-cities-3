@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppSelector, useActionCreators } from '../../hooks/store';
 import { offersActions, offersSelectors } from '../../store/slices/offers';
@@ -5,7 +6,7 @@ type CardsProps = {
   cities: string[];
 }
 
-function CitiesList(props: CardsProps): JSX.Element {
+function CitiesListComp(props: CardsProps): JSX.Element {
   const {cities} = props;
   const currentCity = useAppSelector(offersSelectors.city);
   const {setCity} = useActionCreators(offersActions);
@@ -29,5 +30,8 @@ function CitiesList(props: CardsProps): JSX.Element {
     </ul>
   );
 }
+
+const CitiesList = memo(CitiesListComp);
+
 export default CitiesList;
 

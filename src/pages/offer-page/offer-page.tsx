@@ -40,7 +40,11 @@ function OfferPage({currentCity}: Props): JSX.Element {
   const isAuthorized = useAuth();
 
   useEffect(() => {
-    Promise.all([fetchOffer(id), fetchNearBy(id), fetchComments(id)]);
+    if(id) {
+      fetchOffer(id);
+      fetchNearBy(id);
+      fetchComments(id);
+    }
   }, [fetchOffer, fetchNearBy, fetchComments, id]);
 
   if (status === RequestStatus.Loading) {

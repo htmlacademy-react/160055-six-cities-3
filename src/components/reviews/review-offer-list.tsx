@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import ReviewOfferItem from './review-offer-item';
 import { Reviews } from '../../types/review-type';
 
@@ -5,7 +6,7 @@ type ReviewProps = {
   reviews: Reviews;
 }
 
-function ReviewOfferList(props: ReviewProps): JSX.Element {
+function ReviewOfferListComp(props: ReviewProps): JSX.Element {
   const {reviews} = props;
   return (
     <>
@@ -17,4 +18,7 @@ function ReviewOfferList(props: ReviewProps): JSX.Element {
     </>
   );
 }
+
+const ReviewOfferList = memo(ReviewOfferListComp);
+
 export default ReviewOfferList;

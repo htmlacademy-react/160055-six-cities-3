@@ -1,4 +1,4 @@
-import { useState, FormEvent, useRef } from 'react';
+import { useState, FormEvent, useRef, memo } from 'react';
 import { useActionCreators } from '../../hooks/store';
 import { reviewsActions } from '../../store/slices/reviews';
 import { toast } from 'react-toastify';
@@ -23,7 +23,7 @@ type Props = {
   offerId: string;
 }
 
-function ReviewOfferForm({offerId}: Props): JSX.Element {
+function ReviewOfferFormComp({offerId}: Props): JSX.Element {
   const [isSubmitDisabled, setSubmitDisabled] = useState(true);
   const formRef = useRef(null);
   const {postComment} = useActionCreators(reviewsActions);
@@ -97,4 +97,7 @@ function ReviewOfferForm({offerId}: Props): JSX.Element {
     </form>
   );
 }
+
+const ReviewOfferForm = memo(ReviewOfferFormComp);
+
 export default ReviewOfferForm;

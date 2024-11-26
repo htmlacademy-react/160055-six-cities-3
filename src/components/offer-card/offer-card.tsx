@@ -1,4 +1,4 @@
-import {HTMLAttributes} from 'react';
+import {HTMLAttributes, memo} from 'react';
 import {Offer} from '../../types/offer-type';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
@@ -6,7 +6,7 @@ import {AppRoute} from '../../const';
 type HTMLProps = Pick<HTMLAttributes<HTMLElement>, 'onMouseEnter' | 'onMouseLeave'>;
 type OfferProps = Offer & HTMLProps;
 
-function OfferCard(props: OfferProps): JSX.Element {
+function OfferCardComp(props: OfferProps): JSX.Element {
   const {id, type, title, price, isPremium, isFavorite, rating, previewImage, onMouseEnter, onMouseLeave} = props;
 
   const ratingInStar = `${rating / 5 * 100}%`;
@@ -59,4 +59,7 @@ function OfferCard(props: OfferProps): JSX.Element {
     </article>
   );
 }
+
+const OfferCard = memo(OfferCardComp);
+
 export default OfferCard;
