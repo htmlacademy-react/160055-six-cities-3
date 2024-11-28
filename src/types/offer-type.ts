@@ -1,5 +1,6 @@
 import { User } from './review-type';
 export type Offer = {
+  classAdd?: string;
   id: string;
   title: string;
   type: string;

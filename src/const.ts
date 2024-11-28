@@ -102,3 +102,10 @@ export const CITIES_FULL = [
 ];
 
 export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+
+export const classOffers = {
+  Cities: 'cities',
+  Favorites: 'favorites',
+  NearPlaces: 'near-places',
+  Offer: 'offer',
+};

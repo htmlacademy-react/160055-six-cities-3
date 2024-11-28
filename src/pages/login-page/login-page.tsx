@@ -10,8 +10,6 @@ type HTMLLoginForm = HTMLFormElement & {
   password: HTMLInputElement;
 };
 
-// type ChangeHandler = ReactEventHandler<HTMLInputElement | HTMLTextAreaElement>;
-
 function LoginPage(): JSX.Element {
   const {login} = useActionCreators(userActions);
   const loginRef = useRef<HTMLInputElement | null>(null);
@@ -27,21 +25,6 @@ function LoginPage(): JSX.Element {
       });
     }
   }
-  // const [formData, setFormData] = useState({
-  //   email: '',
-  //   password: '',
-  // });
-  // const handleChange: ChangeHandler = (evt) => {
-  //   const {name, value} = evt.currentTarget;
-  //   setFormData({
-  //     ...formData,
-  //     [name]: value,
-  //   });
-  // };
-  // function handleSubmit(evt: FormEvent<HTMLLoginForm>) {
-  //   evt.preventDefault();
-  //   login(formData);
-  // }
 
   return (
     <div className="page page--gray page--login">

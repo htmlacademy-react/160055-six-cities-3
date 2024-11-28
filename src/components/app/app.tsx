@@ -6,17 +6,15 @@ import LoginPage from '../../pages/login-page/login-page';
 import OfferPage from '../../pages/offer-page/offer-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import {AppRoute} from '../../const';
-import {FullOffer} from '../../types/offer-type';
 import { useAppSelector } from '../../hooks/store';
 import { offersSelectors } from '../../store/slices/offers';
 import ProtectedRoute from '../protected-route/protected-route';
 
 type Props = {
-  favoriteOffers: FullOffer[];
   cities: string[];
 }
 
-function App({favoriteOffers, cities}: Props): JSX.Element {
+function App({cities}: Props): JSX.Element {
   const currentCity = useAppSelector(offersSelectors.city);
 
   return (
@@ -39,7 +37,7 @@ function App({favoriteOffers, cities}: Props): JSX.Element {
             path={AppRoute.Favorites}
             element={
               <ProtectedRoute>
-                <FavoritesPage favoriteOffers={favoriteOffers} />
+                <FavoritesPage />
               </ProtectedRoute>
             }
           />

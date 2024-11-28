@@ -1,100 +1,22 @@
 import {Helmet} from 'react-helmet-async';
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
-import {Link} from 'react-router-dom';
-import {FullOffer} from '../../types/offer-type';
+import { useAppSelector } from '../../hooks/store';
+import { favoritesSelector } from '../../store/slices/favorites';
+import FavoritesEmpty from '../../components/favorites/favorites-empty';
+import Favorites from '../../components/favorites/favorites';
 
-type FavoriteProps = {
-  favoriteOffers: FullOffer[];
-}
-
-function FavoritesPage(props: FavoriteProps): JSX.Element {
-  const {favoriteOffers} = props;
-  const favoriteCities: string[] = [];
-
-  favoriteOffers.forEach((item)=>{
-    favoriteCities.push(item.city.name);
-  });
+function FavoritesPage(): JSX.Element {
+  const offers = useAppSelector(favoritesSelector.favorites);
+  const favoritesNotEmpty = offers.length > 0;
 
   return (
-    <div className="page">
+    <div className={favoritesNotEmpty ? 'page' : 'page page--favorites-empty'}>
       <Helmet>
         <title>Избранное</title>
       </Helmet>
       <Header />
-      <main className="page__main page__main--favorites">
-        <div className="page__favorites-container container">
-          <section className="favorites">
-            <h1 className="favorites__title">Saved listing</h1>
-            <ul className="favorites__list">
-              {favoriteCities.map((city)=>(
-                <li key={city} className="favorites__locations-items">
-                  <div className="favorites__locations locations locations--current">
-                    <div className="locations__item">
-                      <Link className="locations__item-link" to="#">
-                        <span>{city}</span>
-                      </Link>
-                    </div>
-                  </div>
-                  <div className="favorites__places">
-                    { favoriteOffers.map((item)=> (
-                      item.city.name === city ?
-                        <article key={item.id} className="favorites__card place-card">
-                          {item.isPremium ? <div className="place-card__mark"><span>Premium</span></div> : ''}
-                          <div className="favorites__image-wrapper place-card__image-wrapper">
-                            <Link to="#">
-                              <img
-                                className="place-card__image"
-                                src={item.previewImage}
-                                width={150}
-                                height={110}
-                                alt={item.type + item.description + item.id}
-                              />
-                            </Link>
-                          </div>
-                          <div className="favorites__card-info place-card__info">
-                            <div className="place-card__price-wrapper">
-                              <div className="place-card__price">
-                                <b className="place-card__price-value">€{item.price}</b>
-                                <span className="place-card__price-text">
-                            /&nbsp;night
-                                </span>
-                              </div>
-                              <button
-                                className="place-card__bookmark-button place-card__bookmark-button--active button"
-                                type="button"
-                              >
-                                <svg
-                                  className="place-card__bookmark-icon"
-                                  width={18}
-                                  height={19}
-                                >
-                                  <use xlinkHref="#icon-bookmark" />
-                                </svg>
-                                <span className="visually-hidden">In bookmarks</span>
-                              </button>
-                            </div>
-                            <div className="place-card__rating rating">
-                              <div className="place-card__stars rating__stars">
-                                <span style={{ width: `${item.rating / 5 * 100}%` }} />
-                                <span className="visually-hidden">Rating</span>
-                              </div>
-                            </div>
-                            <h2 className="place-card__name">
-                              <Link to="#"> {item.title}</Link>
-                            </h2>
-                            <p className="place-card__type">{item.type}</p>
-                          </div>
-                        </article>
-                        : null
-                    ))}
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </section>
-        </div>
-      </main>
+      {favoritesNotEmpty ? (<Favorites offers={offers} />) : (<FavoritesEmpty />)}
       <Footer />
     </div>
   );
