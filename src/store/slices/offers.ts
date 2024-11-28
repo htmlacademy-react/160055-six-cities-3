@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RequestStatus } from '../../const';
 import { fetchAllOffers } from '../thunks/offers';
 import { FullOffer } from '../../types/offer-type';
+import { changeFavorite } from '../thunks/favorites';
 
 const INIT_CITY = 'Paris';
 
@@ -31,6 +32,13 @@ export const offersSlice = createSlice({
       })
       .addCase(fetchAllOffers.rejected, (state) => {
         state.status = RequestStatus.Failed;
+      })
+      .addCase(changeFavorite.fulfilled, (state, action) => {
+        const changedOffer = action.payload;
+        const offerToChange = state.offers.find((offer) => offer.id === changedOffer.id);
+        if (offerToChange) {
+          offerToChange.isFavorite = changedOffer.isFavorite;
+        }
       });
   },
   initialState,

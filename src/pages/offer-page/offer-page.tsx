@@ -1,6 +1,6 @@
 import {Helmet} from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
-import { MouseEvent, useEffect } from 'react';
+import { MouseEvent, useEffect, useCallback } from 'react';
 import NotFoundPage from '../not-found-page/not-found-page';
 import Header from '../../components/header/header';
 import ReviewOfferForm from '../../components/reviews/review-offer-form';
@@ -9,10 +9,11 @@ import Map from '../../components/map/map';
 import OfferCard from '../../components/offer-card/offer-card';
 import { useAppSelector, useActionCreators} from '../../hooks/store';
 import { offersActions } from '../../store/slices/offers';
-import { RequestStatus } from '../../const';
+import { RequestStatus, classOffers } from '../../const';
 import { offerActions, offerSelector } from '../../store/slices/offer';
 import { reviewsActions, reviewsSelectors } from '../../store/slices/reviews';
 import { useAuth } from '../../hooks/use-auth';
+import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 
 type Props = {
   currentCity: string;
@@ -47,6 +48,16 @@ function OfferPage({currentCity}: Props): JSX.Element {
     }
   }, [fetchOffer, fetchNearBy, fetchComments, id]);
 
+  const handleOfferHover = useCallback((evt: MouseEvent<HTMLElement>) => {
+    const target = evt.currentTarget as HTMLElement;
+    const idOffer = target.dataset.id;
+    setActiveId(idOffer);
+  } ,[setActiveId]);
+
+  const handleOfferLeave = useCallback(() => {
+    setActiveId(undefined);
+  }, [setActiveId]);
+
   if (status === RequestStatus.Loading) {
     return <div>Loading...</div>;
   }
@@ -54,16 +65,6 @@ function OfferPage({currentCity}: Props): JSX.Element {
   if (status === RequestStatus.Failed || !offerPage) {
     return <NotFoundPage />;
   }
-
-  const handleOfferHover = (evt: MouseEvent<HTMLElement>) => {
-    const target = evt.currentTarget as HTMLElement;
-    const idOffer = target.dataset.id;
-    setActiveId(idOffer);
-  };
-
-  const handleOfferLeave = () => {
-    setActiveId(undefined);
-  };
 
   const {bedrooms, description, goods, host, images, isFavorite, isPremium, maxAdults, price, rating, title, type} = offerPage;
 
@@ -101,12 +102,7 @@ function OfferPage({currentCity}: Props): JSX.Element {
                 <h1 className="offer__name">
                   {title}
                 </h1>
-                <button className={isFavorite ? 'offer__bookmark-button button--active button' : 'offer__bookmark-button button'} type="button">
-                  <svg className="offer__bookmark-icon" width="31" height="33">
-                    <use xlinkHref="#icon-bookmark"></use>
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+                <BookmarkButton offerId={id} isFavorite={isFavorite} width={31} height={33} classPath={'offer'} />
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
@@ -172,7 +168,7 @@ function OfferPage({currentCity}: Props): JSX.Element {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {nearbyOffers.map((offer) => (<OfferCard {...offer} onMouseEnter={handleOfferHover} onMouseLeave={handleOfferLeave} key={offer.id} />))}
+              {nearbyOffers.map((offer) => (<OfferCard {...offer} classAdd={classOffers.NearPlaces} onMouseEnter={handleOfferHover} onMouseLeave={handleOfferLeave} key={offer.id} />))}
             </div>
           </section>
         </div>
