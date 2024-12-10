@@ -32,7 +32,7 @@ export function BookmarkButtonComp({
       return navigate(AppRoute.Login);
     }
     setActive((prev) => !prev);
-    const favoriteStatus: FavoriteStatus = {offerId, status: !isActive};
+    const favoriteStatus: FavoriteStatus = {offerId, statusFavorite: !isActive};
     changeFavorite(favoriteStatus);
   }
 
