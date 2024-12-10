@@ -50,7 +50,7 @@ describe('favoriteSlice', () => {
       status: RequestStatus.Loading,
     };
 
-    const result = favoritesSlice.reducer(undefined, fetchFavorites.pending);
+    const result = favoritesSlice.reducer(undefined, fetchFavorites.pending('', undefined));
 
     expect(result).toEqual(expectedState);
   });
