@@ -3,6 +3,8 @@ import { makeFakeOfferCard } from '../../utils/mocks';
 import { changeFavorite, fetchFavorites } from '../thunks/favorites';
 import { favoritesSlice } from './favorites';
 
+const IS_FAVORITE = true;
+
 describe('favoriteSlice', () => {
 
   it('should return initial state with empty action', () => {
@@ -56,7 +58,7 @@ describe('favoriteSlice', () => {
   });
 
   it('should set "RequestStatus" to "Success" add mockOffer in favorites with "changeFavorites.fulfilled"', () => {
-    const mockOffer = makeFakeOfferCard(true);
+    const mockOffer = makeFakeOfferCard(IS_FAVORITE);
     const inintialState = {
       favorites: [],
       status: RequestStatus.Success,
@@ -74,7 +76,7 @@ describe('favoriteSlice', () => {
   });
 
   it('should set "RequestStatus" to "Success" remove mockOffer from favorites with "changeFavorites.fulfilled"', () => {
-    const mockOffer = makeFakeOfferCard(false);
+    const mockOffer = makeFakeOfferCard(!IS_FAVORITE);
     const inintialState = {
       favorites: [mockOffer],
       status: RequestStatus.Success,
