@@ -8,7 +8,7 @@ export const checkAuth = createAppAsyncThunk<UserLogin, undefined>('auth/checkAu
   return response.data;
 });
 
-interface LoginData {
+export interface LoginData {
   email: string;
   password: string;
 }
