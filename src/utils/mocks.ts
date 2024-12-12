@@ -1,7 +1,12 @@
+import { Action } from '@reduxjs/toolkit';
+import { ThunkDispatch } from '@reduxjs/toolkit';
 import {database, name, datatype, address, image, internet} from 'faker';
 import { Offer, FullOffer } from '../types/offer-type';
 import { Review, User } from '../types/review-type';
 import { PostCommentProps } from '../store/thunks/comments';
+import { State } from '../types/store';
+import { createAPI } from '../services/api';
+
 
 export const makeFakeOfferCard = (isFavorite = false): Offer =>({
   id: database.column(),
@@ -92,3 +97,7 @@ export const makeFakeUser = (): User =>({
   token: datatype.string(),
   email: internet.email(),
 });
+
+export type AppThunkDispatch = ThunkDispatch<State, ReturnType<typeof createAPI>, Action>;
+
+export const extractActionsTypes = (actions: Action<string>[]) => actions.map(({ type }) => type);
