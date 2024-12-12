@@ -34,6 +34,7 @@ export const enum RequestStatus {
 export enum AppRoute {
   Main = '/',
   Login = '/login',
+  Logout = '/logout',
   Favorites = '/favorites',
   Offer = '/offer',
 }
