@@ -9,7 +9,7 @@ import { AppRoute } from '../../const';
 import { LoginData, checkAuth, login, logout } from './auth';
 import * as tokenStorage from '../../services/token';
 
-describe('Async actions', () => {
+describe('Auth actions', () => {
   const axios = createAPI();
   const mockAxiosAdapter = new MockAdapter(axios);
   const middleware = [thunk.withExtraArgument(axios)];

@@ -37,6 +37,7 @@ export enum AppRoute {
   Logout = '/logout',
   Favorites = '/favorites',
   Offer = '/offer',
+  Comments = '/comments',
 }
 
 export enum AuthorizationStatus {
