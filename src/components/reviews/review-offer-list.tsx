@@ -9,13 +9,13 @@ type ReviewProps = {
 function ReviewOfferListComp(props: ReviewProps): JSX.Element {
   const {reviews} = props;
   return (
-    <>
+    <ul className="reviews__list" data-testid="reviews__list">
       {
         reviews.map((review) => (
           <ReviewOfferItem key={review.id} review={review} />
         ))
       }
-    </>
+    </ul>
   );
 }
 

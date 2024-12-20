@@ -1,4 +1,4 @@
-import {Route, BrowserRouter, Routes} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import {HelmetProvider} from 'react-helmet-async';
 import IndexPage from '../../pages/index-page/index-page';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
@@ -19,38 +19,36 @@ function App({cities}: Props): JSX.Element {
 
   return (
     <HelmetProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path={AppRoute.Main}
-            element={<IndexPage cities={cities} />}
-          />
-          <Route
-            path={AppRoute.Login}
-            element={
-              <ProtectedRoute onlyUnAuth>
-                <LoginPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path={AppRoute.Favorites}
-            element={
-              <ProtectedRoute>
-                <FavoritesPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path={`${AppRoute.Offer}/:id`}
-            element={<OfferPage currentCity={currentCity} />}
-          />
-          <Route
-            path="*"
-            element={<NotFoundPage />}
-          />
-        </Routes>
-      </BrowserRouter>
+      <Routes>
+        <Route
+          path={AppRoute.Main}
+          element={<IndexPage cities={cities} />}
+        />
+        <Route
+          path={AppRoute.Login}
+          element={
+            <ProtectedRoute onlyUnAuth>
+              <LoginPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path={AppRoute.Favorites}
+          element={
+            <ProtectedRoute>
+              <FavoritesPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path={`${AppRoute.Offer}/:id`}
+          element={<OfferPage currentCity={currentCity} />}
+        />
+        <Route
+          path="*"
+          element={<NotFoundPage />}
+        />
+      </Routes>
     </HelmetProvider>
   );
 }
