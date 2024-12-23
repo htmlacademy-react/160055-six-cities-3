@@ -8,7 +8,7 @@ export const fetchFavorites = createAppAsyncThunk<Offer[], undefined>('fetchFavo
   return response.data;
 });
 
-export const changeFavorite = createAppAsyncThunk<Offer, FavoriteStatus>('fetchFavorite/change', async ({offerId, status}, {extra: api}) => {
-  const response = await api.post<Offer>(`${Endpoint.Favorite}/${offerId}/${Number(status)}`);
+export const changeFavorite = createAppAsyncThunk<Offer, FavoriteStatus>('fetchFavorite/change', async ({offerId, statusFavorite}, {extra: api}) => {
+  const response = await api.post<Offer>(`${Endpoint.Favorite}/${offerId}/${Number(statusFavorite)}`);
   return response.data;
 });

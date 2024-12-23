@@ -8,7 +8,7 @@ export const fetchComments = createAppAsyncThunk<Review[], FullOffer['id']>('com
   return response.data;
 });
 
-interface PostCommentProps {
+export interface PostCommentProps {
   body: {
     comment: string;
     rating: number;
