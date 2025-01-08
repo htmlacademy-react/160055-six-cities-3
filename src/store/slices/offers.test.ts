@@ -4,14 +4,11 @@ import { changeFavorite } from '../thunks/favorites';
 import { fetchAllOffers } from '../thunks/offers';
 import { offersSlice } from './offers';
 
-const INIT_CITY = 'Paris';
-
 describe('offersSlice', () => {
 
   it('should return initial state with empty action', () => {
     const emptyAction = {type: ''};
     const expectedState = {
-      city: INIT_CITY,
       status: RequestStatus.Idle,
       offers: [],
     };
@@ -24,7 +21,6 @@ describe('offersSlice', () => {
   it('should return default initial state with empty action', () => {
     const emptyAction = {type: ''};
     const expectedState = {
-      city: INIT_CITY,
       status: RequestStatus.Idle,
       offers: [],
     };
@@ -36,7 +32,6 @@ describe('offersSlice', () => {
 
   it('should set "RequestStatus" to "Loading" with "fetchAllOffers.pending"', () => {
     const expectedState = {
-      city: INIT_CITY,
       status: RequestStatus.Loading,
       offers: [],
     };
@@ -48,7 +43,6 @@ describe('offersSlice', () => {
 
   it('should set "RequestStatus" to "Failed" with "fetchAllOffers.rejected"', () => {
     const expectedState = {
-      city: INIT_CITY,
       status: RequestStatus.Failed,
       offers: [],
     };
@@ -61,12 +55,10 @@ describe('offersSlice', () => {
   it('should set "RequestStatus" to "Success" add mockOffer allOffers with "fetchAllOffers.fulfilled"', () => {
     const mockOffer = makeFakeFullOfferCard();
     const inintialState = {
-      city: INIT_CITY,
       status: RequestStatus.Idle,
       offers: [],
     };
     const expectedState = {
-      city: INIT_CITY,
       status: RequestStatus.Success,
       offers: [mockOffer],
     };
@@ -82,12 +74,10 @@ describe('offersSlice', () => {
     const mockOffer = makeFakeFullOfferCard();
     const inintialState = {
       offers: [mockOffer],
-      city: INIT_CITY,
       status: RequestStatus.Success,
     };
     const expectedState = {
       offers: [mockOffer],
-      city: INIT_CITY,
       status: RequestStatus.Success,
     };
 
