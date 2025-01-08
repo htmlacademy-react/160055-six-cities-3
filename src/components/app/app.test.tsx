@@ -1,6 +1,6 @@
 import {render, screen} from '@testing-library/react';
 import { MemoryHistory, createMemoryHistory } from 'history';
-import {AppRoute, CITIES} from '../../const';
+import {AppRoute} from '../../const';
 import App from './app';
 import {withHistory, withStore} from '../../utils/mock-component';
 import { makeFakeStore, makeFakeOfferCard } from '../../utils/mocks';
@@ -13,7 +13,7 @@ describe('Routing', () => {
   });
 
   it('should render "Main" when user navigate to "/"', () => {
-    const withHistoryComponent = withHistory(<App cities={CITIES} />, mockHistory);
+    const withHistoryComponent = withHistory(<App />, mockHistory);
     const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore());
     mockHistory.push(AppRoute.Main);
     render(withStoreComponent);
@@ -24,7 +24,7 @@ describe('Routing', () => {
   });
 
   it('should render "Login" when user navigate to "/login"', () => {
-    const withHistoryComponent = withHistory(<App cities={CITIES} />, mockHistory);
+    const withHistoryComponent = withHistory(<App />, mockHistory);
     const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore());
     mockHistory.push(AppRoute.Login);
     render(withStoreComponent);
@@ -34,7 +34,7 @@ describe('Routing', () => {
   });
 
   it('should render "Favorite" when user navigate to "/favorites"', () => {
-    const withHistoryComponent = withHistory(<App cities={CITIES} />, mockHistory);
+    const withHistoryComponent = withHistory(<App />, mockHistory);
     const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore());
 
     mockHistory.push(AppRoute.Favorites);
@@ -47,7 +47,7 @@ describe('Routing', () => {
 
   it('should render "Offer" when user navigate to "/offers/{offerId}"', () => {
     const fakeOfferPage = makeFakeOfferCard();
-    const withHistoryComponent = withHistory(<App cities={CITIES} />, mockHistory);
+    const withHistoryComponent = withHistory(<App />, mockHistory);
     const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore());
     mockHistory.push(`${AppRoute.Offer}/${fakeOfferPage.id}`);
     render(withStoreComponent);
@@ -59,7 +59,7 @@ describe('Routing', () => {
   });
 
   it('should render "NotFound" when user navigate to non-existent route', () => {
-    const withHistoryComponent = withHistory(<App cities={CITIES} />, mockHistory);
+    const withHistoryComponent = withHistory(<App />, mockHistory);
     const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore());
     const unknownRoute = '/404';
     mockHistory.push(unknownRoute);

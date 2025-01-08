@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import HistoryRouter from './components/history-route/history-route';
 import App from './components/app/app';
-import { CITIES } from './const';
 import { store } from './store';
 import { getToken } from './services/token';
 import { userActions } from './store/slices/user';
@@ -23,7 +22,7 @@ root.render(
   <React.StrictMode>
     <Provider store = {store}>
       <HistoryRouter history={browserHistory}>
-        <App cities={CITIES} />
+        <App />
       </HistoryRouter>
     </Provider>
   </React.StrictMode>
