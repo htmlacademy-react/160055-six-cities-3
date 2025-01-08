@@ -2,13 +2,13 @@ import {useRef, useEffect, memo} from 'react';
 import {Icon, Marker, layerGroup} from 'leaflet';
 import useMap from '../../hooks/use-map';
 import { City, Offers, Offer } from '../../types/offer-type';
-import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../const';
+import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT, CityName} from '../../const';
 import 'leaflet/dist/leaflet.css';
 import { useAppSelector } from '../../hooks/store';
 import { offersSelectors } from '../../store/slices/offers';
 
 const EMPTY_LOCATION: City = {
-  name: '',
+  name: 'Paris',
   location: {
     latitude: 0,
     longitude: 0,
@@ -19,7 +19,7 @@ const EMPTY_LOCATION: City = {
 type MapProps = {
   offers: Offers;
   className?: string;
-  currentCity: string;
+  currentCity: CityName;
 };
 
 const defaultCustomIcon = new Icon({

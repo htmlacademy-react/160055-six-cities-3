@@ -101,7 +101,9 @@ export const CITIES_FULL = [
     },
     slug: 'dusseldorf'
   },
-];
+] as const;
+
+export type CityName = typeof CITIES_FULL[number]['name'];
 
 export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 

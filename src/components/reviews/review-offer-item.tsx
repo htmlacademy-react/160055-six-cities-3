@@ -13,7 +13,7 @@ function ReviewOfferItemComp(props: ReviewItemProps): JSX.Element {
   const {review} = props;
   const {comment, date, rating, user} = review;
 
-  const ratingInStar = `${rating / 5 * 100}%`;
+  const ratingInStar = `${Math.round(rating) / 5 * 100}%`;
 
   return (
     <li className="reviews__item" data-testid="reviews__item">

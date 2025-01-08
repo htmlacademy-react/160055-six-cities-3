@@ -5,21 +5,19 @@ import Map from '../../components/map/map';
 import CitiesList from '../../components/cities/cities';
 import { useActionCreators, useAppSelector } from '../../hooks/store';
 import { offersActions, offersSelectors } from '../../store/slices/offers';
-import { RequestStatus, SortOption, classOffers } from '../../const';
+import { CityName, RequestStatus, SortOption, classOffers } from '../../const';
 import Sort from '../../components/sort/sort';
 import OfferCard from '../../components/offer-card/offer-card';
 import MainPageEmpty from '../../components/main-page-empty/main-page-empty';
 
 type Props = {
-  cities: string[];
-}
+  currentCity: CityName;
+};
 
-function IndexPage({cities}: Props): JSX.Element {
+function IndexPage({currentCity}: Props): JSX.Element {
   const offers = useAppSelector(offersSelectors.offers);
-  const currentCity = useAppSelector(offersSelectors.city);
   const status = useAppSelector(offersSelectors.offersStatus);
   const {setActiveId, fetchAllOffers} = useActionCreators(offersActions);
-
   const isEmpty = offers.length === 0;
 
   useEffect(() => {
@@ -73,7 +71,7 @@ function IndexPage({cities}: Props): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <CitiesList cities={cities} />
+            <CitiesList currentCity={currentCity} />
           </section>
         </div>
         <div className="cities">
@@ -90,7 +88,10 @@ function IndexPage({cities}: Props): JSX.Element {
                 </div>
               </section>
               <div className="cities__right-section">
-                <Map offers={offers} currentCity = {currentCity} className='cities__map' />
+                {sortedOffers.length !== 0 ?
+                  <Map offers={sortedOffers} currentCity = {currentCity} className='cities__map' />
+                  :
+                  ''}
               </div>
             </div>}
         </div>
