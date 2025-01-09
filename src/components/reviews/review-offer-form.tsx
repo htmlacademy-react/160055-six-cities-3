@@ -50,24 +50,6 @@ function ReviewOfferFormComp({offerId}: Props): JSX.Element {
       setSubmitDisabled(true);
       form.reset();
     });
-    // toast.promise(postComment(reviewToSend)
-    //   .unwrap(), {
-    //   pending: 'Sending...',
-    //   success: {
-    //     render: () => {
-    //       setDisabled(false);
-    //       setSubmitDisabled(true);
-    //       form.reset();
-    //       return 'Sent!';
-    //     }
-    //   },
-    //   error: {
-    //     render() {
-    //       setDisabled(false);
-    //       return 'Failed to send review. Please try again';
-    //     }
-    //   }
-    // });
   };
 
   return (
