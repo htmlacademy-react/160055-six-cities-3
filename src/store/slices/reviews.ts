@@ -18,8 +18,8 @@ export const reviewSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchComments.fulfilled, (state, action) => {
+        state.items = action.payload.sort((a,b)=> new Date(b.date).getTime() - new Date(a.date).getTime());
         state.status = RequestStatus.Success;
-        state.items = action.payload;
       })
       .addCase(fetchComments.rejected, (state) => {
         state.status = RequestStatus.Failed;
@@ -28,7 +28,7 @@ export const reviewSlice = createSlice({
         state.status = RequestStatus.Loading;
       })
       .addCase(postComment.fulfilled, (state, action) => {
-        state.items.push(action.payload);
+        state.items.unshift(action.payload);
       })
       .addCase(postComment.rejected, (state) => {
         state.status = RequestStatus.Failed;

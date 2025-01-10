@@ -1,6 +1,6 @@
 import {Helmet} from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
-import { MouseEvent, useEffect, useCallback } from 'react';
+import { useEffect } from 'react';
 import NotFoundPage from '../not-found-page/not-found-page';
 import Header from '../../components/header/header';
 import ReviewOfferForm from '../../components/reviews/review-offer-form';
@@ -14,10 +14,9 @@ import { offerActions, offerSelector } from '../../store/slices/offer';
 import { reviewsActions, reviewsSelectors } from '../../store/slices/reviews';
 import { useAuth } from '../../hooks/use-auth';
 import BookmarkButton from '../../components/bookmark-button/bookmark-button';
+import classNames from 'classnames';
 
-type Props = {
-  currentCity: string;
-}
+const IMAGES_LIMIT = 6;
 
 const allActions = {
   ...offerActions,
@@ -29,11 +28,11 @@ function capitalizeFirstLetter(string: string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-function OfferPage({currentCity}: Props): JSX.Element {
+function OfferPage(): JSX.Element {
 
   const offerPage = useAppSelector(offerSelector.offer);
   const status = useAppSelector(offerSelector.offerStatus);
-  const nearbyOffers = useAppSelector(offerSelector.nearbyOffers);
+  const nearbyOffers = useAppSelector(offerSelector.nearbyOffers).slice(0,3);
   const reviews = useAppSelector(reviewsSelectors.reviews);
   const {fetchNearBy, fetchOffer, fetchComments, setActiveId} = useActionCreators(allActions);
 
@@ -41,22 +40,13 @@ function OfferPage({currentCity}: Props): JSX.Element {
   const isAuthorized = useAuth();
 
   useEffect(() => {
+    setActiveId(id);
     if(id) {
       fetchOffer(id);
       fetchNearBy(id);
       fetchComments(id);
     }
-  }, [fetchOffer, fetchNearBy, fetchComments, id]);
-
-  const handleOfferHover = useCallback((evt: MouseEvent<HTMLElement>) => {
-    const target = evt.currentTarget as HTMLElement;
-    const idOffer = target.dataset.id;
-    setActiveId(idOffer);
-  } ,[setActiveId]);
-
-  const handleOfferLeave = useCallback(() => {
-    setActiveId(undefined);
-  }, [setActiveId]);
+  }, [fetchOffer, fetchNearBy, fetchComments, id, setActiveId]);
 
   if (status === RequestStatus.Loading) {
     return <div>Loading...</div>;
@@ -72,7 +62,7 @@ function OfferPage({currentCity}: Props): JSX.Element {
 
   const nearOffersPlusCurrent = [offerPage, ...nearbyOffers];
 
-  const ratingInStar = `${rating / 5 * 100}%`;
+  const ratingInStar = `${(Math.round(rating) * 100 / 5).toString()}%`;
 
   return (
     <div className="page">
@@ -84,7 +74,7 @@ function OfferPage({currentCity}: Props): JSX.Element {
         <section className="offer">
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
-              {images.map((image) => (
+              {images.slice(0, IMAGES_LIMIT).map((image) => (
                 <div className="offer__image-wrapper" key={image}>
                   <img
                     className="offer__image"
@@ -137,15 +127,16 @@ function OfferPage({currentCity}: Props): JSX.Element {
               <div className="offer__host">
                 <h2 className="offer__host-title">Meet the host</h2>
                 <div className="offer__host-user user">
-                  <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
+                  <div className={classNames('offer__avatar-wrapper', 'user__avatar-wrapper', {
+                    'offer__avatar-wrapper--pro' : isPro
+                  })}
+                  >
                     <img className="offer__avatar user__avatar" src={avatarUrl} width={74} height={74} alt={name} />
                   </div>
                   <span className="offer__user-name">
                     {name}
                   </span>
-                  <span className="offer__user-status">
-                    {isPro ? 'Pro' : ''}
-                  </span>
+                  {isPro && <span className="offer__user-status">Pro</span>}
                 </div>
                 <div className="offer__description">
                   <p className="offer__text">
@@ -160,13 +151,13 @@ function OfferPage({currentCity}: Props): JSX.Element {
               </section>
             </div>
           </div>
-          <Map offers={nearOffersPlusCurrent} currentCity = {currentCity} className='offer__map' />
+          <Map offers={nearOffersPlusCurrent} currentCity={offerPage.city.name} className='offer__map' />
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {nearbyOffers.map((offer) => (<OfferCard {...offer} classAdd={classOffers.NearPlaces} onMouseEnter={handleOfferHover} onMouseLeave={handleOfferLeave} key={offer.id} />))}
+              {nearbyOffers.map((offer) => (<OfferCard {...offer} classAdd={classOffers.NearPlaces} key={offer.id} />))}
             </div>
           </section>
         </div>

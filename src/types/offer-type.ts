@@ -1,3 +1,4 @@
+import { CityName } from '../const';
 import { User } from './review-type';
 export type Offer = {
   classAdd?: string;
@@ -30,7 +31,7 @@ export type FullOffer = Offer & {
 };
 
 export type City = {
-  name: string;
+  name: CityName;
   location: Location;
 };
 

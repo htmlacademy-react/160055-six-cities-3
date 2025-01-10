@@ -11,7 +11,7 @@ type OfferProps = Offer & HTMLProps;
 function OfferCardComp(props: OfferProps): JSX.Element {
   const {classAdd, id, type, title, price, isPremium, isFavorite, rating, previewImage, onMouseEnter, onMouseLeave} = props;
 
-  const ratingInStar = `${rating / 5 * 100}%`;
+  const ratingInStar = `${Math.round(rating) / 5 * 100}%`;
 
   return (
     <article

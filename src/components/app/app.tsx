@@ -1,29 +1,31 @@
-import {Route, Routes} from 'react-router-dom';
+import {Route, Routes, Navigate} from 'react-router-dom';
 import {HelmetProvider} from 'react-helmet-async';
 import IndexPage from '../../pages/index-page/index-page';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import LoginPage from '../../pages/login-page/login-page';
 import OfferPage from '../../pages/offer-page/offer-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
-import {AppRoute} from '../../const';
-import { useAppSelector } from '../../hooks/store';
-import { offersSelectors } from '../../store/slices/offers';
+import {AppRoute, CITIES_FULL} from '../../const';
 import ProtectedRoute from '../protected-route/protected-route';
 
-type Props = {
-  cities: string[];
-}
 
-function App({cities}: Props): JSX.Element {
-  const currentCity = useAppSelector(offersSelectors.city);
-
+function App(): JSX.Element {
   return (
     <HelmetProvider>
       <Routes>
         <Route
           path={AppRoute.Main}
-          element={<IndexPage cities={cities} />}
+          element={<Navigate to={`/${CITIES_FULL[0].slug}`} />}
         />
+        {CITIES_FULL.map((city) => (
+          <Route
+            key={city.name}
+            path={`/${city.slug}`}
+            element={
+              <IndexPage currentCity={city.name} />
+            }
+          />
+        ))}
         <Route
           path={AppRoute.Login}
           element={
@@ -42,7 +44,7 @@ function App({cities}: Props): JSX.Element {
         />
         <Route
           path={`${AppRoute.Offer}/:id`}
-          element={<OfferPage currentCity={currentCity} />}
+          element={<OfferPage />}
         />
         <Route
           path="*"

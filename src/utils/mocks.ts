@@ -1,6 +1,6 @@
 import { Action } from '@reduxjs/toolkit';
 import { ThunkDispatch } from '@reduxjs/toolkit';
-import {database, name, datatype, address, image, internet} from 'faker';
+import {database, name, datatype, image, internet} from 'faker';
 import { Offer, FullOffer } from '../types/offer-type';
 import { Review, User } from '../types/review-type';
 import { PostCommentProps } from '../store/thunks/comments';
@@ -20,7 +20,7 @@ export const makeFakeOfferCard = (isFavorite = false): Offer =>({
   type: name.title(),
   price: datatype.number(),
   city: {
-    name: address.city(),
+    name: 'Hamburg',
     location: {
       latitude: datatype.number(),
       longitude: datatype.number(),
@@ -44,7 +44,7 @@ export const makeFakeFullOfferCard = (isFavorite = false): FullOffer =>({
   type: name.title(),
   price: datatype.number(),
   city: {
-    name: address.city(),
+    name: 'Hamburg',
     location: {
       latitude: datatype.number(),
       longitude: datatype.number(),
@@ -109,7 +109,7 @@ export type AppThunkDispatch = ThunkDispatch<State, ReturnType<typeof createAPI>
 export const extractActionsTypes = (actions: Action<string>[]) => actions.map(({ type }) => type);
 
 export const makeFakeStore = (initialState?: Partial<State>): State => ({
-  [offersSlice.name]: { city: 'Paris', offers:[], status: RequestStatus.Idle, activeId: '' },
+  [offersSlice.name]: { offers:[], status: RequestStatus.Idle, activeId: '' },
   [offerSlice.name]: {info: makeFakeFullOfferCard(false), status: RequestStatus.Idle, nearby:[]},
   [reviewSlice.name]: {items:[], status: RequestStatus.Idle},
   [favoritesSlice.name]: {favorites:[], status: RequestStatus.Idle},

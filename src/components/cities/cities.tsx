@@ -1,31 +1,27 @@
 import { memo } from 'react';
-import { Link } from 'react-router-dom';
-import { useAppSelector, useActionCreators } from '../../hooks/store';
-import { offersActions, offersSelectors } from '../../store/slices/offers';
-type CardsProps = {
-  cities: string[];
-}
+import { NavLink } from 'react-router-dom';
+import { CITIES_FULL, CityName } from '../../const';
 
-function CitiesListComp(props: CardsProps): JSX.Element {
-  const {cities} = props;
-  const currentCity = useAppSelector(offersSelectors.city);
-  const {setCity} = useActionCreators(offersActions);
+type Props = {
+  currentCity: CityName;
+};
+
+function CitiesListComp({currentCity}: Props): JSX.Element {
 
   return (
     <ul className="locations__list tabs__list">
-      {cities.map((city) => (
+      {CITIES_FULL.map(({name, slug}) => (
         <li onClick={(evt) => {
           evt.preventDefault();
-          setCity(city);
         }}
         className="locations__item"
-        key={city}
+        key={name}
         >
-          <Link className={city === currentCity ? 'locations__item-link tabs__item tabs__item--active' : 'locations__item-link tabs__item'}
-            to="#"
+          <NavLink className={name === currentCity ? 'locations__item-link tabs__item tabs__item--active' : 'locations__item-link tabs__item'}
+            to={`/${slug}`}
           >
-            <span>{city}</span>
-          </Link>
+            <span>{name}</span>
+          </NavLink>
         </li>))}
     </ul>
   );

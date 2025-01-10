@@ -1,7 +1,6 @@
 import { useState, FormEvent, useRef, memo } from 'react';
 import { useActionCreators } from '../../hooks/store';
 import { reviewsActions } from '../../store/slices/reviews';
-import { toast } from 'react-toastify';
 import { ReviewSend } from '../../types/review-type';
 import FormRating from './review-form-rating';
 
@@ -46,24 +45,17 @@ function ReviewOfferFormComp({offerId}: Props): JSX.Element {
       },
     };
     setDisabled(true);
-    toast.promise(postComment(reviewToSend)
-      .unwrap(), {
-      pending: 'Sending...',
-      success: {
-        render: () => {
-          setDisabled(false);
-          setSubmitDisabled(true);
-          form.reset();
-          return 'Sent!';
-        }
-      },
-      error: {
-        render() {
-          setDisabled(false);
-          return 'Failed to send review. Please try again';
-        }
-      }
-    });
+    postComment(reviewToSend)
+      .unwrap()
+      .then(() => {
+        setDisabled(false);
+        setSubmitDisabled(true);
+        form.reset();
+      })
+      .catch(() => {
+        setDisabled(false);
+        setSubmitDisabled(false);
+      });
   };
 
   return (
@@ -89,7 +81,7 @@ function ReviewOfferFormComp({offerId}: Props): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={isSubmitDisabled}
+          disabled={isSubmitDisabled || isDisabled}
         >
           Submit
         </button>

@@ -4,6 +4,7 @@ import { FormEvent, useRef} from 'react';
 import { AppRoute } from '../../const';
 import { userActions } from '../../store/slices/user';
 import { useActionCreators } from '../../hooks/store';
+import { RandomCity } from '../../components/random-city/random-city';
 
 type HTMLLoginForm = HTMLFormElement & {
   email: HTMLInputElement;
@@ -59,13 +60,7 @@ function LoginPage(): JSX.Element {
               <button className="login__submit form__submit button" type="submit">Sign in</button>
             </form>
           </section>
-          <section className="locations locations--login locations--current">
-            <div className="locations__item">
-              <a className="locations__item-link" href="#">
-                <span>Amsterdam</span>
-              </a>
-            </div>
-          </section>
+          <RandomCity />
         </div>
       </main>
     </div>
