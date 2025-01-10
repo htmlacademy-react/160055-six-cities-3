@@ -45,11 +45,17 @@ function ReviewOfferFormComp({offerId}: Props): JSX.Element {
       },
     };
     setDisabled(true);
-    postComment(reviewToSend).unwrap().then(() => {
-      setDisabled(false);
-      setSubmitDisabled(true);
-      form.reset();
-    });
+    postComment(reviewToSend)
+      .unwrap()
+      .then(() => {
+        setDisabled(false);
+        setSubmitDisabled(true);
+        form.reset();
+      })
+      .catch(() => {
+        setDisabled(false);
+        setSubmitDisabled(false);
+      });
   };
 
   return (
