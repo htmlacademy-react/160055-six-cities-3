@@ -1,6 +1,6 @@
 import {Helmet} from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
-import { MouseEvent, useEffect, useCallback } from 'react';
+import { useEffect } from 'react';
 import NotFoundPage from '../not-found-page/not-found-page';
 import Header from '../../components/header/header';
 import ReviewOfferForm from '../../components/reviews/review-offer-form';
@@ -40,22 +40,13 @@ function OfferPage(): JSX.Element {
   const isAuthorized = useAuth();
 
   useEffect(() => {
+    setActiveId(id);
     if(id) {
       fetchOffer(id);
       fetchNearBy(id);
       fetchComments(id);
     }
-  }, [fetchOffer, fetchNearBy, fetchComments, id]);
-
-  const handleOfferHover = useCallback((evt: MouseEvent<HTMLElement>) => {
-    const target = evt.currentTarget as HTMLElement;
-    const idOffer = target.dataset.id;
-    setActiveId(idOffer);
-  } ,[setActiveId]);
-
-  const handleOfferLeave = useCallback(() => {
-    setActiveId(undefined);
-  }, [setActiveId]);
+  }, [fetchOffer, fetchNearBy, fetchComments, id, setActiveId]);
 
   if (status === RequestStatus.Loading) {
     return <div>Loading...</div>;
@@ -166,7 +157,7 @@ function OfferPage(): JSX.Element {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {nearbyOffers.map((offer) => (<OfferCard {...offer} classAdd={classOffers.NearPlaces} onMouseEnter={handleOfferHover} onMouseLeave={handleOfferLeave} key={offer.id} />))}
+              {nearbyOffers.map((offer) => (<OfferCard {...offer} classAdd={classOffers.NearPlaces} key={offer.id} />))}
             </div>
           </section>
         </div>
